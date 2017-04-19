@@ -27,7 +27,7 @@ CREATE TABLE User
     security_question INT NOT NULL, /* Refers to the number of the selected security question */
     security_answer VARCHAR (128) NOT NULL,
     email VARCHAR (128) NOT NULL,      
-    usertype VARCHAR (32) NOT NULL,
+    usertype ENUM('student', 'teacher') NOT NULL,
     PRIMARY KEY (id)
 );
 
