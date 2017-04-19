@@ -64,5 +64,6 @@ CREATE TABLE Score
        gradedscore VARCHAR(MAX) NOT NULL,
        comments VARCHAR(MAX),
        user_id INT UNSIGNED,
-       FOREIGN KEY (user_id) REFERENCES User(id) ON DELETE CASCADE       
+       FOREIGN KEY (user_id) REFERENCES User(id) ON DELETE CASCADE,
+       FOREIGN KEY (test_id) REFERENCES Test(id) ON DELETE CASCADE
 );
