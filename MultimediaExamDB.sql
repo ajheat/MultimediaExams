@@ -47,7 +47,7 @@ Note: We cannot name the table as File since it is a reserved word in MySQL.
 CREATE TABLE Tests
 (
        id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
-       arrray VARCHAR NOT NULL,
+       questions VARCHAR(MAX) NOT NULL,
        user_id INT UNSIGNED,
        FOREIGN KEY (user_id) REFERENCES User(id) ON DELETE CASCADE
 );
@@ -59,9 +59,10 @@ Note: We cannot name the table as File since it is a reserved word in MySQL.
 CREATE TABLE Score
 (
        id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
-       arrayscore VARCHAR NOT NULL,
-       autoscore VARCHAR NOT NULL,
-       gradedscore VARCHAR NOT NULL,
+       answers VARCHAR(MAX) NOT NULL,
+       autoscore VARCHAR(MAX) NOT NULL,
+       gradedscore VARCHAR(MAX) NOT NULL,
+       comments VARCHAR(MAX),
        user_id INT UNSIGNED,
-       FOREIGN KEY (user_id) REFERENCES User(id) ON DELETE CASCADE
+       FOREIGN KEY (user_id) REFERENCES User(id) ON DELETE CASCADE       
 );
