@@ -8,7 +8,14 @@
 Tables to be dropped must be listed in a logical order based on dependency.
 UserFile and UserPhoto depend on User. Therefore, they must be dropped before User.
 */
-DROP TABLE IF EXISTS UserFile, UserPhoto, User;
+DROP TABLE IF EXISTS UserFile;
+DROP TABLE IF EXISTS UserPhoto;
+DROP TABLE IF EXISTS AnsweredQuestions;
+DROP TABLE IF EXISTS Score;
+DROP TABLE IF EXISTS Questions;
+DROP TABLE IF EXISTS Tests;
+DROP TABLE IF EXISTS User;
+
 
 /* The User table contains attributes of interest of a User. */
 CREATE TABLE User
@@ -50,6 +57,7 @@ CREATE TABLE Tests
        test_name VARCHAR (32) NOT NULL,
        num_questions INT UNSIGNED,
        total_points INT UNSIGNED,
+       user_id INT UNSIGNED,
        FOREIGN KEY (user_id) REFERENCES User(id) ON DELETE CASCADE
 );
 
@@ -60,18 +68,18 @@ Note: We cannot name the table as File since it is a reserved word in MySQL.
 CREATE TABLE Questions
 (
        id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
-       question VARCHAR(MAX) NOT NULL,
-       question_type INT NOT NULL, /* Refers to the number of the selected question type */
+       question VARCHAR(2048) NOT NULL,
+       question_type INT NOT NULL, 
        option_one VARCHAR (32) NOT NULL,
        option_two VARCHAR (32) NOT NULL,
        option_three VARCHAR (32) NOT NULL,
        option_four VARCHAR (32) NOT NULL,
-       answer VARCHAR(MAX) NOT NULL,
-       media_path VARCHAR(MAX) NOT NULL,
+       answer VARCHAR(2048) NOT NULL,
+       media_path VARCHAR(2048) NOT NULL,
        points INT UNSIGNED,
        user_id INT UNSIGNED,
        test_id INT UNSIGNED,
-       FOREIGN KEY (user_id) REFERENCES User(id) ON DELETE CASCADE
+       FOREIGN KEY (user_id) REFERENCES User(id) ON DELETE CASCADE,
        FOREIGN KEY (test_id) REFERENCES Tests(id) ON DELETE CASCADE
 );
 
@@ -79,10 +87,10 @@ CREATE TABLE AnsweredQuestions
 (
        id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
        isCorrect BOOLEAN,
-       comment VARCHAR(MAX),
+       comment VARCHAR(2048),
        user_id INT UNSIGNED,
        question_id INT UNSIGNED,
-       FOREIGN KEY (user_id) REFERENCES User(id) ON DELETE CASCADE
+       FOREIGN KEY (user_id) REFERENCES User(id) ON DELETE CASCADE,
        FOREIGN KEY (question_id) REFERENCES Questions(id) ON DELETE CASCADE
 );
 
@@ -97,5 +105,5 @@ CREATE TABLE Score
        user_id INT UNSIGNED,
        test_id INT UNSIGNED,
        FOREIGN KEY (user_id) REFERENCES User(id) ON DELETE CASCADE,
-       FOREIGN KEY (test_id) REFERENCES Test(id) ON DELETE CASCADE
+       FOREIGN KEY (test_id) REFERENCES Tests(id) ON DELETE CASCADE
 );
