@@ -119,6 +119,19 @@ public class Question implements Serializable {
     public String getQuestionType() {
         return questionType;
     }
+    
+    public String textQuestionType() {
+        switch (questionType) {
+            case "short":
+                return "Short Answer";
+            case "multiple":
+                return "Multiple Choice";
+            case "essay":
+                return "Essay";
+            default:
+                return "Unknown";
+        }
+    }
 
     public void setQuestionType(String questionType) {
         this.questionType = questionType;

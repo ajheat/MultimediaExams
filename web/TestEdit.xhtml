@@ -20,7 +20,7 @@
                         <p:selectBooleanCheckbox id="open" value="#{testController.selected.open}" required="true" requiredMessage="#{bundle.EditTestRequiredMessage_open}"/>
                     </p:panelGrid>
                     <div align="center">
-                        <p:commandButton actionListener="#{testController.edit}" value="#{bundle.Edit}" 
+                        <p:commandButton actionListener="#{testController.update}" value="#{bundle.Edit}" 
                                          styleClass="commandButton" icon="ui-icon-pencil" ajax="false"
                                          update="display,:TeacherTestListForm:datalist,:growl" 
                                          oncomplete="handleSubmit(args,'TestEditDialog');"/>
