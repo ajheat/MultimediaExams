@@ -12,25 +12,24 @@
             <h:form id="QuestionCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{questionController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreateQuestionLabel_id}" for="id" />
-                        <p:inputText id="id" value="#{questionController.selected.id}" title="#{bundle.CreateQuestionTitle_id}" required="true" requiredMessage="#{bundle.CreateQuestionRequiredMessage_id}"/>
                         <p:outputLabel value="#{bundle.CreateQuestionLabel_question}" for="question" />
                         <p:inputTextarea rows="4" cols="30" id="question" value="#{questionController.selected.question}" title="#{bundle.CreateQuestionTitle_question}" required="true" requiredMessage="#{bundle.CreateQuestionRequiredMessage_question}"/>
                         <p:outputLabel value="#{bundle.CreateQuestionLabel_summary}" for="summary" />
                         <p:inputText id="summary" value="#{questionController.selected.summary}" title="#{bundle.CreateQuestionTitle_summary}" required="true" requiredMessage="#{bundle.CreateQuestionRequiredMessage_summary}"/>
                         <p:outputLabel value="#{bundle.CreateQuestionLabel_questionType}" for="questionType" />
                         <p:inputText id="questionType" value="#{questionController.selected.questionType}" title="#{bundle.CreateQuestionTitle_questionType}" required="true" requiredMessage="#{bundle.CreateQuestionRequiredMessage_questionType}"/>
-                        <p:outputLabel value="#{bundle.CreateQuestionLabel_choices}" for="choices" />
-                        <p:inputText id="choices" value="#{questionController.selected.choices}" title="#{bundle.CreateQuestionTitle_choices}" />
                         <p:outputLabel value="#{bundle.CreateQuestionLabel_correctAnswer}" for="correctAnswer" />
                         <p:inputText id="correctAnswer" value="#{questionController.selected.correctAnswer}" title="#{bundle.CreateQuestionTitle_correctAnswer}" />
-                        <p:outputLabel value="#{bundle.CreateQuestionLabel_mediaPath}" for="mediaPath" />
-                        <p:inputText id="mediaPath" value="#{questionController.selected.mediaPath}" title="#{bundle.CreateQuestionTitle_mediaPath}" />
                         <p:outputLabel value="#{bundle.CreateQuestionLabel_points}" for="points" />
                         <p:inputText id="points" value="#{questionController.selected.points}" title="#{bundle.CreateQuestionTitle_points}" />
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{questionController.create}" value="#{bundle.Save}" update="display,:QuestionListForm:datalist,:growl" oncomplete="handleSubmit(args,'QuestionCreateDialog');"/>
+                    <div align="center">
+                    <p:commandButton actionListener="#{questionController.create}"
+                                     value="#{bundle.Save}" update="display,:QuestionListForm:datalist,:growl"
+                                     styleClass="commandButton" ajax="false" icon="ui-icon-plus"
+                                     oncomplete="handleSubmit(args,'QuestionCreateDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="QuestionCreateDialog.hide()"/>
+                    </div>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

@@ -150,6 +150,7 @@ public class TestController implements Serializable {
     }
     
     public void questionSummary(ActionEvent actionEvent) throws IOException {
+        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("active_test", selected);
         FacesContext.getCurrentInstance().getExternalContext().redirect("TestQuestions.xhtml");
     }
 

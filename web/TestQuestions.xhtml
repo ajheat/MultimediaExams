@@ -21,8 +21,8 @@
                                      selectionMode="single" selection="#{questionController.selected}"
                                      paginator="true"
                                      rowKey="#{item.id}"
-                                     rows="5"
-                                     rowsPerPageTemplate="5,10,15,20,30,40,50"
+                                     rows="10"
+                                     rowsPerPageTemplate="10,15,20,30,40,50"
                                      styleClass="dataTable"
                                      >
 
@@ -31,57 +31,55 @@
 
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListQuestionTitle_id}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.id}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListQuestionTitle_question}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.question}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
                                 <h:outputText value="#{bundle.ListQuestionTitle_summary}"/>
                             </f:facet>
                             <h:outputText value="#{item.summary}"/>
                         </p:column>
-                        <p:column>
+                        <p:column style="width: 130px; text-align: center;">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListQuestionTitle_questionType}"/>
                             </f:facet>
-                            <h:outputText value="#{item.questionType}"/>
+                            <h:outputText value="#{item.textQuestionType()}"/>
                         </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListQuestionTitle_choices}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.choices}"/>
-                        </p:column>
-                        <p:column>
+                        <p:column style="width: 350px;">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListQuestionTitle_correctAnswer}"/>
                             </f:facet>
                             <h:outputText value="#{item.correctAnswer}"/>
                         </p:column>
-                        <p:column>
+                        <p:column style="width: 350px; overflow-wrap: break-word;">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListQuestionTitle_mediaPath}"/>
                             </f:facet>
                             <h:outputText value="#{item.mediaPath}"/>
                         </p:column>
-                        <p:column>
+                        <p:column style="width: 90px; text-align: center">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListQuestionTitle_points}"/>
                             </f:facet>
                             <h:outputText value="#{item.points}"/>
                         </p:column>
                         <f:facet name="footer">
-                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{questionController.prepareCreate}" update=":QuestionCreateForm" oncomplete="PF('QuestionCreateDialog').show()"/>
-                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":QuestionViewForm" oncomplete="PF('QuestionViewDialog').show()" disabled="#{empty questionController.selected}"/>
-                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":QuestionEditForm" oncomplete="PF('QuestionEditDialog').show()" disabled="#{empty questionController.selected}"/>
-                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{questionController.destroy}" update=":growl,datalist" disabled="#{empty questionController.selected}"/>
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   
+                                             value="#{bundle.Create}" actionListener="#{questionController.prepareCreate}" 
+                                             update=":QuestionCreateForm" styleClass="commandButton" 
+                                             oncomplete="PF('QuestionCreateDialog').show()"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" 
+                                             value="#{bundle.Edit}" update=":QuestionEditForm" 
+                                             oncomplete="PF('QuestionEditDialog').show()" 
+                                             styleClass="commandButton"
+                                             disabled="#{empty questionController.selected}"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" 
+                                             value="#{bundle.View}" styleClass="commandButton" 
+                                             oncomplete="PF('QuestionViewDialog').show()" 
+                                             disabled="#{empty questionController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  
+                                             value="#{bundle.Delete}" actionListener="#{questionController.destroy}" 
+                                             update=":growl,datalist" styleClass="commandButton"
+                                             disabled="#{empty questionController.selected}"/>
+                            <p:button id="returnButton"   icon=" ui-icon-arrowreturn-1-w" 
+                                          value="#{bundle.Return}" outcome="TeacherList"
+                                          styleClass="commandButton"/>
                         </f:facet>
                     </p:dataTable>
                 </p:panel>

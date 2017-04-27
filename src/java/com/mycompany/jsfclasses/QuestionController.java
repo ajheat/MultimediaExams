@@ -1,6 +1,7 @@
 package com.mycompany.jsfclasses;
 
 import com.mycompany.entityclasses.Question;
+import com.mycompany.entityclasses.Test;
 import com.mycompany.jsfclasses.util.JsfUtil;
 import com.mycompany.jsfclasses.util.JsfUtil.PersistAction;
 import com.mycompany.sessionbeans.QuestionFacade;
@@ -86,6 +87,8 @@ public class QuestionController implements Serializable {
             setEmbeddableKeys();
             try {
                 if (persistAction != PersistAction.DELETE) {
+                    Test t = (Test) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("active_test");
+                    selected.setTestId(t);
                     getFacade().edit(selected);
                 } else {
                     getFacade().remove(selected);
