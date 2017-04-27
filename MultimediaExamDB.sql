@@ -10,10 +10,10 @@ UserFile and UserPhoto depend on User. Therefore, they must be dropped before Us
 */
 DROP TABLE IF EXISTS UserFile;
 DROP TABLE IF EXISTS UserPhoto;
-DROP TABLE IF EXISTS AnsweredQuestions;
+DROP TABLE IF EXISTS AnsweredQuestion;
 DROP TABLE IF EXISTS Score;
-DROP TABLE IF EXISTS Questions;
-DROP TABLE IF EXISTS Tests;
+DROP TABLE IF EXISTS Question;
+DROP TABLE IF EXISTS Test;
 DROP TABLE IF EXISTS User;
 
 
@@ -47,63 +47,50 @@ CREATE TABLE UserPhoto
        FOREIGN KEY (user_id) REFERENCES User(id) ON DELETE CASCADE
 );
 
-/* 
-The UserFile table contains attributes of interest of a user's uploaded file. 
-Note: We cannot name the table as File since it is a reserved word in MySQL.
-*/
-CREATE TABLE Tests
+CREATE TABLE Test
 (
        id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
        test_name VARCHAR (32) NOT NULL,
-       num_questions INT UNSIGNED,
-       total_points INT UNSIGNED,
-       user_id INT UNSIGNED,
+       num_questions INT UNSIGNED NOT NULL,
+       total_points INT UNSIGNED NOT NULL,
+       user_id INT UNSIGNED NOT NULL,
+       due_date DATETIME,
        FOREIGN KEY (user_id) REFERENCES User(id) ON DELETE CASCADE
 );
 
-/* 
-The UserFile table contains attributes of interest of a user's uploaded file. 
-Note: We cannot name the table as File since it is a reserved word in MySQL.
-*/
-CREATE TABLE Questions
+CREATE TABLE Question
 (
        id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
-       question VARCHAR(2048) NOT NULL,
-       question_type INT NOT NULL, 
-       option_one VARCHAR (32) NOT NULL,
-       option_two VARCHAR (32) NOT NULL,
-       option_three VARCHAR (32) NOT NULL,
-       option_four VARCHAR (32) NOT NULL,
-       answer VARCHAR(2048) NOT NULL,
-       media_path VARCHAR(2048) NOT NULL,
+       question TEXT NOT NULL,
+       question_type ENUM('multiple', 'short', 'essay') NOT NULL, 
+       choices VARCHAR(2048),
+       correct_answer VARCHAR(2048),
+       media_path VARCHAR(2048),
        points INT UNSIGNED,
-       user_id INT UNSIGNED,
-       test_id INT UNSIGNED,
+       user_id INT UNSIGNED NOT NULL, /* Why is this here? */
+       test_id INT UNSIGNED NOT NULL,
        FOREIGN KEY (user_id) REFERENCES User(id) ON DELETE CASCADE,
-       FOREIGN KEY (test_id) REFERENCES Tests(id) ON DELETE CASCADE
+       FOREIGN KEY (test_id) REFERENCES Test(id) ON DELETE CASCADE
 );
 
-CREATE TABLE AnsweredQuestions
+CREATE TABLE AnsweredQuestion
 (
        id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
+       answer TEXT NOT NULL,
        isCorrect BOOLEAN,
        comment VARCHAR(2048),
-       user_id INT UNSIGNED,
-       question_id INT UNSIGNED,
+       user_id INT UNSIGNED NOT NULL,
+       question_id INT UNSIGNED NOT NULL,
        FOREIGN KEY (user_id) REFERENCES User(id) ON DELETE CASCADE,
-       FOREIGN KEY (question_id) REFERENCES Questions(id) ON DELETE CASCADE
+       FOREIGN KEY (question_id) REFERENCES Question(id) ON DELETE CASCADE
 );
 
-/* 
-The UserFile table contains attributes of interest of a user's uploaded file. 
-Note: We cannot name the table as File since it is a reserved word in MySQL.
-*/
 CREATE TABLE Score
 (
        id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
        score INT UNSIGNED,
-       user_id INT UNSIGNED,
-       test_id INT UNSIGNED,
+       user_id INT UNSIGNED NOT NULL,
+       test_id INT UNSIGNED NOT NULL,
        FOREIGN KEY (user_id) REFERENCES User(id) ON DELETE CASCADE,
-       FOREIGN KEY (test_id) REFERENCES Tests(id) ON DELETE CASCADE
+       FOREIGN KEY (test_id) REFERENCES Test(id) ON DELETE CASCADE
 );
