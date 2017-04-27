@@ -64,7 +64,6 @@ CREATE TABLE Question
        media_path VARCHAR(2048),
        points INT UNSIGNED,
        test_id INT UNSIGNED NOT NULL,
-       FOREIGN KEY (user_id) REFERENCES User(id) ON DELETE CASCADE,
        FOREIGN KEY (test_id) REFERENCES Test(id) ON DELETE CASCADE
 );
 
