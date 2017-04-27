@@ -17,8 +17,15 @@
                         <p:outputLabel value="#{bundle.CreateTestLabel_dueDate}" for="dueDate" />
                         <p:calendar id="dueDate" pattern="MM/dd/yyyy HH:mm:ss" value="#{testController.selected.dueDate}" title="#{bundle.EditTestTitle_dueDate}"  showOn="button"/>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{testController.create}" value="#{bundle.Save}" update="display,:TestListForm:datalist,:growl" oncomplete="handleSubmit(args,'TestCreateDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="TestCreateDialog.hide()"/>
+                    <div align="center">
+                        <p:commandButton actionListener="#{testController.create}" value="#{bundle.Create}" 
+                                         styleClass="commandButton" icon="ui-icon-plus" ajax="false"
+                                         update="display,:TeacherTestListForm:datalist,:growl" 
+                                         oncomplete="handleSubmit(args,'TestCreateDialog');"/>
+                        &nbsp;
+                        <p:commandButton value="#{bundle.Cancel}" onclick="TestCreateDialog.hide()"
+                                         styleClass="commandButton" icon="ui-icon-cancel"/>
+                    </div>
                 </h:panelGroup>
             </h:form>
         </p:dialog>
