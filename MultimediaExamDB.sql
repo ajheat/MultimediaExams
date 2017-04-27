@@ -1,9 +1,3 @@
-# --------------------------------------------
-# SQL script to create and populate the tables
-# for the CloudDrive Database (CloudDriveDB)
-# Created by Osman Balci
-# --------------------------------------------
-
 /*
 Tables to be dropped must be listed in a logical order based on dependency.
 UserFile and UserPhoto depend on User. Therefore, they must be dropped before User.
