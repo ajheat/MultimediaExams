@@ -6,8 +6,10 @@
 package com.mycompany.entityclasses;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,12 +19,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -40,6 +44,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Test.findByDueDate", query = "SELECT t FROM Test t WHERE t.dueDate = :dueDate")
     , @NamedQuery(name = "Test.findByOpen", query = "SELECT t FROM Test t WHERE t.open = :open")})
 public class Test implements Serializable {
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "testId")
+    private Collection<Question> questionCollection;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -169,6 +176,15 @@ public class Test implements Serializable {
     @Override
     public String toString() {
         return "com.mycompany.entityclasses.Test[ id=" + id + " ]";
+    }
+
+    @XmlTransient
+    public Collection<Question> getQuestionCollection() {
+        return questionCollection;
+    }
+
+    public void setQuestionCollection(Collection<Question> questionCollection) {
+        this.questionCollection = questionCollection;
     }
     
 }

@@ -8,28 +8,28 @@
 
     <ui:composition>
 
-        <p:dialog id="TestViewDlg" widgetVar="TestViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewTestTitle}">
-            <h:form id="TestViewForm">
+        <p:dialog id="QuestionViewDlg" widgetVar="QuestionViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewQuestionTitle}">
+            <h:form id="QuestionViewForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{testController.selected != null}">
-                        <h:outputText value="#{bundle.ViewTestLabel_id}"/>
-                        <h:outputText value="#{testController.selected.id}" title="#{bundle.ViewTestTitle_id}"/>
-                        <h:outputText value="#{bundle.ViewTestLabel_testName}"/>
-                        <h:outputText value="#{testController.selected.testName}" title="#{bundle.ViewTestTitle_testName}"/>
-                        <h:outputText value="#{bundle.ViewTestLabel_numQuestions}"/>
-                        <h:outputText value="#{testController.selected.numQuestions}" title="#{bundle.ViewTestTitle_numQuestions}"/>
-                        <h:outputText value="#{bundle.ViewTestLabel_totalPoints}"/>
-                        <h:outputText value="#{testController.selected.totalPoints}" title="#{bundle.ViewTestTitle_totalPoints}"/>
-                        <h:outputText value="#{bundle.ViewTestLabel_dueDate}"/>
-                        <h:outputText value="#{testController.selected.dueDate}" title="#{bundle.ViewTestTitle_dueDate}">
-                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                        </h:outputText>
-                        <h:outputText value="#{bundle.ViewTestLabel_open}"/>
-                        <p:selectBooleanCheckbox value="#{testController.selected.open}" disabled="true"/>
-                        <h:outputText value="#{bundle.ViewTestLabel_userId}"/>
-                        <h:outputText value="#{testController.selected.userId}" title="#{bundle.ViewTestTitle_userId}"/>
+                    <p:panelGrid columns="2" rendered="#{questionController.selected != null}">
+                        <h:outputText value="#{bundle.ViewQuestionLabel_id}"/>
+                        <h:outputText value="#{questionController.selected.id}" title="#{bundle.ViewQuestionTitle_id}"/>
+                        <h:outputText value="#{bundle.ViewQuestionLabel_question}"/>
+                        <h:outputText value="#{questionController.selected.question}" title="#{bundle.ViewQuestionTitle_question}"/>
+                        <h:outputText value="#{bundle.ViewQuestionLabel_summary}"/>
+                        <h:outputText value="#{questionController.selected.summary}" title="#{bundle.ViewQuestionTitle_summary}"/>
+                        <h:outputText value="#{bundle.ViewQuestionLabel_questionType}"/>
+                        <h:outputText value="#{questionController.selected.questionType}" title="#{bundle.ViewQuestionTitle_questionType}"/>
+                        <h:outputText value="#{bundle.ViewQuestionLabel_choices}"/>
+                        <h:outputText value="#{questionController.selected.choices}" title="#{bundle.ViewQuestionTitle_choices}"/>
+                        <h:outputText value="#{bundle.ViewQuestionLabel_correctAnswer}"/>
+                        <h:outputText value="#{questionController.selected.correctAnswer}" title="#{bundle.ViewQuestionTitle_correctAnswer}"/>
+                        <h:outputText value="#{bundle.ViewQuestionLabel_mediaPath}"/>
+                        <h:outputText value="#{questionController.selected.mediaPath}" title="#{bundle.ViewQuestionTitle_mediaPath}"/>
+                        <h:outputText value="#{bundle.ViewQuestionLabel_points}"/>
+                        <h:outputText value="#{questionController.selected.points}" title="#{bundle.ViewQuestionTitle_points}"/>
                     </p:panelGrid>
-                    <p:commandButton value="#{bundle.Close}" onclick="TestViewDialog.hide()"/>
+                    <p:commandButton value="#{bundle.Close}" onclick="QuestionViewDialog.hide()"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

@@ -31,8 +31,8 @@ Copyright © 2017 Andrew Heatwole. All rights reserved.
                                  rowsPerPageTemplate="10,20,30,40,50"
                                  >
 
-                        <p:ajax event="rowSelect"   update="createButton editButton deleteButton"/>
-                        <p:ajax event="rowUnselect" update="createButton editButton deleteButton"/>
+                        <p:ajax event="rowSelect"   update="createButton editButton deleteButton summaryButton"/>
+                        <p:ajax event="rowUnselect" update="createButton editButton deleteButton summaryButton"/>
 
                         <p:column>
                             <f:facet name="header">
@@ -78,6 +78,7 @@ Copyright © 2017 Andrew Heatwole. All rights reserved.
                                              disabled="#{empty testController.selected}"/>
                             <p:commandButton id="summaryButton"   icon="ui-icon-clipboard" 
                                              value="#{bundle.Summary}" styleClass="commandButton" 
+                                             actionListener="#{testController.questionSummary}"
                                              disabled="#{empty testController.selected}"/>
                             <p:commandButton id="deleteButton" icon="ui-icon-trash"  
                                              value="#{bundle.Delete}" actionListener="#{testController.destroy}" 
@@ -88,8 +89,8 @@ Copyright © 2017 Andrew Heatwole. All rights reserved.
                 </p:panel>
             </h:form>
 
-                <ui:include src="Create.xhtml"/>
-                <ui:include src="Edit.xhtml"/>
+                <ui:include src="TestCreate.xhtml"/>
+                <ui:include src="TestEdit.xhtml"/>
             </div>
         </ui:define>
     </ui:composition>

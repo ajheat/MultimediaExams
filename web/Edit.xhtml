@@ -8,26 +8,29 @@
 
     <ui:composition>
 
-        <p:dialog id="TestEditDlg" widgetVar="TestEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditTestTitle}">
-            <h:form id="TestEditForm">
+        <p:dialog id="QuestionEditDlg" widgetVar="QuestionEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditQuestionTitle}">
+            <h:form id="QuestionEditForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{testController.selected != null}">
-                        <p:outputLabel value="#{bundle.EditTestLabel_testName}" for="testName" />
-                        <p:inputText id="testName" value="#{testController.selected.testName}" title="#{bundle.EditTestTitle_testName}" required="true" requiredMessage="#{bundle.EditTestRequiredMessage_testName}"/>
-                        <p:outputLabel value="#{bundle.EditTestLabel_dueDate}" for="dueDate" />
-                        <p:calendar id="dueDate" pattern="MM/dd/yyyy HH:mm:ss" value="#{testController.selected.dueDate}" title="#{bundle.EditTestTitle_dueDate}"  showOn="button"/>
-                        <p:outputLabel value="#{bundle.EditTestLabel_open}" for="open" />
-                        <p:selectBooleanCheckbox id="open" value="#{testController.selected.open}" required="true" requiredMessage="#{bundle.EditTestRequiredMessage_open}"/>
+                    <p:panelGrid columns="2" rendered="#{questionController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditQuestionLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{questionController.selected.id}" title="#{bundle.EditQuestionTitle_id}" required="true" requiredMessage="#{bundle.EditQuestionRequiredMessage_id}"/>
+                        <p:outputLabel value="#{bundle.EditQuestionLabel_question}" for="question" />
+                        <p:inputTextarea rows="4" cols="30" id="question" value="#{questionController.selected.question}" title="#{bundle.EditQuestionTitle_question}" required="true" requiredMessage="#{bundle.EditQuestionRequiredMessage_question}"/>
+                        <p:outputLabel value="#{bundle.EditQuestionLabel_summary}" for="summary" />
+                        <p:inputText id="summary" value="#{questionController.selected.summary}" title="#{bundle.EditQuestionTitle_summary}" required="true" requiredMessage="#{bundle.EditQuestionRequiredMessage_summary}"/>
+                        <p:outputLabel value="#{bundle.EditQuestionLabel_questionType}" for="questionType" />
+                        <p:inputText id="questionType" value="#{questionController.selected.questionType}" title="#{bundle.EditQuestionTitle_questionType}" required="true" requiredMessage="#{bundle.EditQuestionRequiredMessage_questionType}"/>
+                        <p:outputLabel value="#{bundle.EditQuestionLabel_choices}" for="choices" />
+                        <p:inputText id="choices" value="#{questionController.selected.choices}" title="#{bundle.EditQuestionTitle_choices}" />
+                        <p:outputLabel value="#{bundle.EditQuestionLabel_correctAnswer}" for="correctAnswer" />
+                        <p:inputText id="correctAnswer" value="#{questionController.selected.correctAnswer}" title="#{bundle.EditQuestionTitle_correctAnswer}" />
+                        <p:outputLabel value="#{bundle.EditQuestionLabel_mediaPath}" for="mediaPath" />
+                        <p:inputText id="mediaPath" value="#{questionController.selected.mediaPath}" title="#{bundle.EditQuestionTitle_mediaPath}" />
+                        <p:outputLabel value="#{bundle.EditQuestionLabel_points}" for="points" />
+                        <p:inputText id="points" value="#{questionController.selected.points}" title="#{bundle.EditQuestionTitle_points}" />
                     </p:panelGrid>
-                    <div align="center">
-                        <p:commandButton actionListener="#{testController.edit}" value="#{bundle.Edit}" 
-                                         styleClass="commandButton" icon="ui-icon-pencil" ajax="false"
-                                         update="display,:TeacherTestListForm:datalist,:growl" 
-                                         oncomplete="handleSubmit(args,'TestEditDialog');"/>
-                        &nbsp;
-                        <p:commandButton value="#{bundle.Cancel}" onclick="TestEditDialog.hide()"
-                                         styleClass="commandButton" icon="ui-icon-cancel"/>
-                    </div>
+                    <p:commandButton actionListener="#{questionController.update}" value="#{bundle.Save}" update="display,:QuestionListForm:datalist,:growl" oncomplete="handleSubmit(args, 'QuestionEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="QuestionEditDialog.hide()"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>
