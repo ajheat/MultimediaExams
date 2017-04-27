@@ -1,10 +1,13 @@
 package com.mycompany.jsfclasses;
 
+import com.mycompany.entityclasses.Question;
 import com.mycompany.entityclasses.Test;
 import com.mycompany.entityclasses.User;
 import com.mycompany.jsfclasses.util.JsfUtil;
 import com.mycompany.jsfclasses.util.JsfUtil.PersistAction;
+import com.mycompany.sessionbeans.QuestionFacade;
 import com.mycompany.sessionbeans.TestFacade;
+import java.io.IOException;
 
 import java.io.Serializable;
 import java.util.List;
@@ -19,6 +22,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.faces.event.ActionEvent;
 
 @Named("testController")
 @SessionScoped
@@ -26,8 +30,13 @@ public class TestController implements Serializable {
 
     @EJB
     private com.mycompany.sessionbeans.TestFacade ejbFacade;
+    
+    @EJB
+    private com.mycompany.sessionbeans.QuestionFacade questionFacade;
     private List<Test> items = null;
     private Test selected;
+    
+    private List<Question> testQuestions = null;
 
     public TestController() {
     }
@@ -48,6 +57,10 @@ public class TestController implements Serializable {
 
     private TestFacade getFacade() {
         return ejbFacade;
+    }
+    
+    private QuestionFacade getQuestionFacade() {
+        return questionFacade;
     }
 
     public Test prepareCreate() {
@@ -129,45 +142,56 @@ public class TestController implements Serializable {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass = Test.class)
-    public static class TestControllerConverter implements Converter {
-
-        @Override
-        public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
-            if (value == null || value.length() == 0) {
-                return null;
-            }
-            TestController controller = (TestController) facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "testController");
-            return controller.getTest(getKey(value));
+    public List<Question> getTestQuestions() {
+        if (selected != null) {
+            return getQuestionFacade().testQuery(selected);
         }
-
-        java.lang.Integer getKey(String value) {
-            java.lang.Integer key;
-            key = Integer.valueOf(value);
-            return key;
-        }
-
-        String getStringKey(java.lang.Integer value) {
-            StringBuilder sb = new StringBuilder();
-            sb.append(value);
-            return sb.toString();
-        }
-
-        @Override
-        public String getAsString(FacesContext facesContext, UIComponent component, Object object) {
-            if (object == null) {
-                return null;
-            }
-            if (object instanceof Test) {
-                Test o = (Test) object;
-                return getStringKey(o.getId());
-            } else {
-                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), Test.class.getName()});
-                return null;
-            }
-        }
-
+        return null;
     }
+    
+    public void questionSummary(ActionEvent actionEvent) throws IOException {
+        FacesContext.getCurrentInstance().getExternalContext().redirect("TestQuestions.xhtml");
+    }
+
+@FacesConverter(forClass = Test.class)
+public static class TestControllerConverter implements Converter {
+
+    @Override
+    public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
+        if (value == null || value.length() == 0) {
+            return null;
+        }
+        TestController controller = (TestController) facesContext.getApplication().getELResolver().
+                getValue(facesContext.getELContext(), null, "testController");
+        return controller.getTest(getKey(value));
+    }
+
+    java.lang.Integer getKey(String value) {
+        java.lang.Integer key;
+        key = Integer.valueOf(value);
+        return key;
+    }
+
+    String getStringKey(java.lang.Integer value) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(value);
+        return sb.toString();
+    }
+
+    @Override
+    public String getAsString(FacesContext facesContext, UIComponent component, Object object) {
+        if (object == null) {
+            return null;
+        }
+        if (object instanceof Test) {
+            Test o = (Test) object;
+            return getStringKey(o.getId());
+        } else {
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), Test.class.getName()});
+            return null;
+        }
+    }
+
+}
 
 }

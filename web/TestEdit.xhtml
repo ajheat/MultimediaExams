@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TestEditDlg" widgetVar="TestEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditTestTitle}">
+            <h:form id="TestEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{testController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditTestLabel_testName}" for="testName" />
+                        <p:inputText id="testName" value="#{testController.selected.testName}" title="#{bundle.EditTestTitle_testName}" required="true" requiredMessage="#{bundle.EditTestRequiredMessage_testName}"/>
+                        <p:outputLabel value="#{bundle.EditTestLabel_dueDate}" for="dueDate" />
+                        <p:calendar id="dueDate" pattern="MM/dd/yyyy HH:mm:ss" value="#{testController.selected.dueDate}" title="#{bundle.EditTestTitle_dueDate}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditTestLabel_open}" for="open" />
+                        <p:selectBooleanCheckbox id="open" value="#{testController.selected.open}" required="true" requiredMessage="#{bundle.EditTestRequiredMessage_open}"/>
+                    </p:panelGrid>
+                    <div align="center">
+                        <p:commandButton actionListener="#{testController.edit}" value="#{bundle.Edit}" 
+                                         styleClass="commandButton" icon="ui-icon-pencil" ajax="false"
+                                         update="display,:TeacherTestListForm:datalist,:growl" 
+                                         oncomplete="handleSubmit(args,'TestEditDialog');"/>
+                        &nbsp;
+                        <p:commandButton value="#{bundle.Cancel}" onclick="TestEditDialog.hide()"
+                                         styleClass="commandButton" icon="ui-icon-cancel"/>
+                    </div>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
