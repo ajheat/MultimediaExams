@@ -141,6 +141,8 @@ public class LoginManager implements Serializable {
                 getSessionMap().put("username", username);
         FacesContext.getCurrentInstance().getExternalContext().
                 getSessionMap().put("user_id", user.getId());
+        FacesContext.getCurrentInstance().getExternalContext().
+                getSessionMap().put("usertype", user.getUsertype());
     }
 
 }
