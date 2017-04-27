@@ -329,22 +329,22 @@ public class AccountManager implements Serializable {
 
     public boolean studentIsLoggedIn() {
         if( isLoggedIn() && FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usertype") != null){
-                return FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usertype") == "Student";
+                return FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usertype").equals("student");
         }
         else
         {
-            System.out.println("FALSE STUDENT");
             return false;
         }
 
     }
     
     public boolean teacherIsLoggedIn() {
-       if( isLoggedIn() && FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usertype") != null){
-                return FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usertype").equals("Teacher");
+       if( isLoggedIn() && FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usertype") != null) {
+                return FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usertype").equals("teacher");
         }
         else
         {
+            System.out.println(FacesContext.getCurrentInstance().getExternalContext().getSessionMap().toString());
             return false;
         }
     }
