@@ -12,24 +12,10 @@
             <h:form id="TestCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{testController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreateTestLabel_id}" for="id" />
-                        <p:inputText id="id" value="#{testController.selected.id}" title="#{bundle.CreateTestTitle_id}" required="true" requiredMessage="#{bundle.CreateTestRequiredMessage_id}"/>
                         <p:outputLabel value="#{bundle.CreateTestLabel_testName}" for="testName" />
                         <p:inputText id="testName" value="#{testController.selected.testName}" title="#{bundle.CreateTestTitle_testName}" required="true" requiredMessage="#{bundle.CreateTestRequiredMessage_testName}"/>
-                        <p:outputLabel value="#{bundle.CreateTestLabel_numQuestions}" for="numQuestions" />
-                        <p:inputText id="numQuestions" value="#{testController.selected.numQuestions}" title="#{bundle.CreateTestTitle_numQuestions}" required="true" requiredMessage="#{bundle.CreateTestRequiredMessage_numQuestions}"/>
-                        <p:outputLabel value="#{bundle.CreateTestLabel_totalPoints}" for="totalPoints" />
-                        <p:inputText id="totalPoints" value="#{testController.selected.totalPoints}" title="#{bundle.CreateTestTitle_totalPoints}" required="true" requiredMessage="#{bundle.CreateTestRequiredMessage_totalPoints}"/>
                         <p:outputLabel value="#{bundle.CreateTestLabel_dueDate}" for="dueDate" />
                         <p:calendar id="dueDate" pattern="MM/dd/yyyy HH:mm:ss" value="#{testController.selected.dueDate}" title="#{bundle.EditTestTitle_dueDate}"  showOn="button"/>
-                        <p:outputLabel value="#{bundle.CreateTestLabel_open}" for="open" />
-                        <p:selectBooleanCheckbox id="open" value="#{testController.selected.open}" required="true" requiredMessage="#{bundle.EditTestRequiredMessage_open}"/>
-                        <p:outputLabel value="#{bundle.CreateTestLabel_userId}" for="userId" />
-                        <p:selectOneMenu id="userId" value="#{testController.selected.userId}" required="true" requiredMessage="#{bundle.EditTestRequiredMessage_userId}">
-                            <f:selectItems value="#{userController.itemsAvailableSelectOne}"
-                                           var="userIdItem"
-                                           itemValue="#{userIdItem}"/>
-                        </p:selectOneMenu>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{testController.create}" value="#{bundle.Save}" update="display,:TestListForm:datalist,:growl" oncomplete="handleSubmit(args,'TestCreateDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="TestCreateDialog.hide()"/>

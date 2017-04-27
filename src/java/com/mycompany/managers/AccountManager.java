@@ -344,7 +344,6 @@ public class AccountManager implements Serializable {
         }
         else
         {
-            System.out.println(FacesContext.getCurrentInstance().getExternalContext().getSessionMap().toString());
             return false;
         }
     }

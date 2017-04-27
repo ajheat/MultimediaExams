@@ -129,6 +129,10 @@ public class Test implements Serializable {
     public boolean getOpen() {
         return open;
     }
+    
+    public String getStatus() {
+        return open ? "Open" : "Closed";
+    }
 
     public void setOpen(boolean open) {
         this.open = open;

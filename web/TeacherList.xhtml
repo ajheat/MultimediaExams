@@ -14,7 +14,7 @@ Copyright © 2017 Andrew Heatwole. All rights reserved.
 
 
         <ui:define name="title">
-            <h:outputText value="#{bundle.ListUserVideoTitle}"></h:outputText>
+            <h:outputText value="#{bundle.ListTestTitle}"></h:outputText>
         </ui:define>
 
         <ui:define name="editableContent">
@@ -36,29 +36,23 @@ Copyright © 2017 Andrew Heatwole. All rights reserved.
 
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListTestTitle_id}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.id}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
                                 <h:outputText value="#{bundle.ListTestTitle_testName}"/>
                             </f:facet>
                             <h:outputText value="#{item.testName}"/>
                         </p:column>
-                        <p:column>
+                        <p:column style="width: 80px; text-align: center;">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListTestTitle_numQuestions}"/>
                             </f:facet>
                             <h:outputText value="#{item.numQuestions}"/>
                         </p:column>
-                        <p:column>
+                        <p:column style="width: 90px; text-align: center;">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListTestTitle_totalPoints}"/>
                             </f:facet>
                             <h:outputText value="#{item.totalPoints}"/>
                         </p:column>
-                        <p:column>
+                        <p:column style="width: 130px; text-align: center;">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListTestTitle_dueDate}"/>
                             </f:facet>
@@ -66,17 +60,11 @@ Copyright © 2017 Andrew Heatwole. All rights reserved.
                                 <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
                             </h:outputText>
                         </p:column>
-                        <p:column>
+                        <p:column style="width: 80px; text-align: center;">
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListTestTitle_open}"/>
+                                <h:outputText value="#{bundle.ListTestTitle_status}"/>
                             </f:facet>
-                            <p:selectBooleanCheckbox value="#{item.open}" disabled="true"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListTestTitle_userId}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.userId}"/>
+                            <h:outputText value="#{item.getStatus()}"/>
                         </p:column>
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{testController.prepareCreate}" update=":TestCreateForm" oncomplete="PF('TestCreateDialog').show()"/>
