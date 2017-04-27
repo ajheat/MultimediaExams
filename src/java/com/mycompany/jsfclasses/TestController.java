@@ -1,6 +1,7 @@
 package com.mycompany.jsfclasses;
 
 import com.mycompany.entityclasses.Test;
+import com.mycompany.entityclasses.User;
 import com.mycompany.jsfclasses.util.JsfUtil;
 import com.mycompany.jsfclasses.util.JsfUtil.PersistAction;
 import com.mycompany.sessionbeans.TestFacade;
@@ -86,6 +87,13 @@ public class TestController implements Serializable {
             setEmbeddableKeys();
             try {
                 if (persistAction != PersistAction.DELETE) {
+                    if (persistAction == PersistAction.CREATE) {
+                        selected.setNumQuestions(0);
+                        selected.setTotalPoints(0);
+                        selected.setOpen(false);
+                        User u = (User) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("user");
+                        selected.setUserId(u);
+                    }
                     getFacade().edit(selected);
                 } else {
                     getFacade().remove(selected);
