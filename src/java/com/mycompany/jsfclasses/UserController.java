@@ -26,6 +26,16 @@ public class UserController implements Serializable {
     @EJB
     private com.mycompany.sessionbeans.UserFacade ejbFacade;
     private List<User> items = null;
+    private List<User> students = null;
+
+    public List<User> getStudents() {
+        students = getFacade().studentQuery("student");
+        return students;
+    }
+
+    public void setStudents(List<User> students) {
+        this.students = students;
+    }
     private User selected;
 
     public UserController() {

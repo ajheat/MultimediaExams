@@ -1,6 +1,7 @@
 package com.mycompany.sessionbeans;
 
 import com.mycompany.entityclasses.User;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -70,6 +71,18 @@ public class UserFacade extends AbstractFacade<User> {
                     .setParameter("username", username)
                     .getSingleResult());
         }
+    }
+    
+    /**
+     * @param username is the username attribute (column) value of the user
+     * @return object reference of the User entity whose username is username
+     */
+    public List<User> studentQuery(String type) {
+        List<User> students = em.createNamedQuery("User.findByUsertype")
+                .setParameter("usertype", type)
+                .getResultList();
+
+        return students;
     }
 
     /**
