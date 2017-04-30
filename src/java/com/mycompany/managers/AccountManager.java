@@ -329,7 +329,7 @@ public class AccountManager implements Serializable {
 
     public boolean studentIsLoggedIn() {
         if( isLoggedIn() && FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usertype") != null){
-                return FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usertype").equals("student");
+                return FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usertype").equals("Student");
         }
         else
         {
@@ -340,7 +340,7 @@ public class AccountManager implements Serializable {
     
     public boolean teacherIsLoggedIn() {
        if( isLoggedIn() && FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usertype") != null) {
-                return FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usertype").equals("teacher");
+                return FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usertype").equals("Teacher");
         }
         else
         {
