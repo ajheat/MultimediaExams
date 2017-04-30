@@ -29,6 +29,7 @@ CREATE TABLE User
     security_answer VARCHAR (128) NOT NULL,
     email VARCHAR (128) NOT NULL,      
     usertype ENUM('student', 'teacher') NOT NULL,
+    course_grade FLOAT,
     PRIMARY KEY (id)
 );
 
@@ -58,10 +59,11 @@ CREATE TABLE Question
        id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
        question TEXT NOT NULL,
        summary VARCHAR(128) NOT NULL,
-       question_type ENUM('multiple', 'short', 'essay') NOT NULL, 
+       question_type ENUM('multiple', 'short', 'free_response', 'true_false') NOT NULL, 
        choices VARCHAR(2048),
        correct_answer VARCHAR(2048),
        media_path VARCHAR(2048),
+       media_type ENUM('image', 'video'),
        points INT UNSIGNED,
        test_id INT UNSIGNED NOT NULL,
        FOREIGN KEY (test_id) REFERENCES Test(id) ON DELETE CASCADE
