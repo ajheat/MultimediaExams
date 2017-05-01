@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Created by Aaron Newman on 2017.05.01 
+Copyright © 2017 Aaron Newman. All rights reserved.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <ui:composition>
+
+        <p:dialog id="QuestionAnswerDialog" widgetVar="QuestionAnswerDialog" modal="true" resizable="false" appendTo="@(body)" header="Answer Question">
+            <h:form id="QuestionAnswerForm">
+                <h:panelGroup id="display">
+
+                    <c:if test="#{questionController.selected.mediaPath != null}">
+                        <div align="center">
+                            <h:graphicImage url="#{questionController.selected.mediaPath}" width="300px"/>
+                        </div>
+                    </c:if>
+
+
+                    <p:panelGrid columns="2" rendered="#{questionController.selected != null}">
+
+
+                        <h:outputText value="#{bundle.ViewQuestionLabel_question}"/>
+                        <h:outputText value="#{questionController.selected.question}" title="#{bundle.ViewQuestionTitle_question}"/>
+                        <h:outputText value="#{bundle.ViewQuestionLabel_summary}"/>
+                        <h:outputText value="#{questionController.selected.summary}" title="#{bundle.ViewQuestionTitle_summary}"/>
+                        <h:outputText value="#{bundle.ViewQuestionLabel_questionType}"/>
+                        <h:outputText value="#{questionController.selected.questionType}" title="#{bundle.ViewQuestionTitle_questionType}"/>
+                        <h:outputText value="#{bundle.ViewQuestionLabel_choices}"/>
+                        <h:outputText value="#{questionController.selected.choices}" title="#{bundle.ViewQuestionTitle_choices}"/>
+
+                        <h:outputText value="#{bundle.ViewQuestionLabel_points}"/>
+                        <h:outputText value="#{questionController.selected.points}" title="#{bundle.ViewQuestionTitle_points}"/>
+                    </p:panelGrid>
+
+                    <c:if test="#{questionController.selected.questionType == 'multiple'}">
+                        <h3 style="margin-top:0">Basic</h3>
+                        <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
+                            <p:outputLabel for="multipleChoice" value="Multiple Choice: " />
+                            <p:selectOneRadio id="multipleChoice" value="#{radioView.city}"  layout="grid" columns="3">
+                                <f:selectItems value="#{questionController.option}" var="c" itemLabel="#{option}" itemValue="#{option}"/>
+                            </p:selectOneRadio>
+                        </h:panelGrid>
+                    </c:if>
+
+                    <c:if test="#{questionController.selected.questionType == 'true_false'}">
+                        TF
+                    </c:if>
+
+                    <c:if test="#{questionController.selected.questionType == 'short'}">
+                        Short
+                    </c:if>
+
+                    <c:if test="#{questionController.selected.questionType == 'free_response'}">
+                        FR
+                    </c:if>
+
+                    <p:commandButton value="#{bundle.Close}" onclick="QuestionViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

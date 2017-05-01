@@ -63,7 +63,6 @@ public class Question implements Serializable {
     private String summary;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 9)
     @Column(name = "question_type")
     private String questionType;
     @Size(max = 2048)
@@ -119,15 +118,17 @@ public class Question implements Serializable {
     public String getQuestionType() {
         return questionType;
     }
-    
+
     public String textQuestionType() {
         switch (questionType) {
             case "short":
                 return "Short Answer";
             case "multiple":
                 return "Multiple Choice";
-            case "essay":
-                return "Essay";
+            case "free_response":
+                return "Free Response";
+            case "true_false":
+                return "True/False";
             default:
                 return "Unknown";
         }
@@ -201,5 +202,5 @@ public class Question implements Serializable {
     public void setTestId(Test testId) {
         this.testId = testId;
     }
-    
+
 }

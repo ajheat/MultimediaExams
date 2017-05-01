@@ -28,10 +28,10 @@
                         <p:selectOneMenu id="questionType" value="#{questionController.selected.questionType}" required="true"
                                          requiredMessage="#{bundle.CreateQuestionRequiredMessage_questionType}">
                                     <f:selectItem itemLabel="Select Question Type" itemValue=""/>
-                                    <f:selectItem itemLabel="Multiple Choice" itemValue="multipleChoice"/>
-                                    <f:selectItem itemLabel="True/False" itemValue="trueFalse"/>
-                                    <f:selectItem itemLabel="Short Answer" itemValue="shortAnswer"/>
-                                    <f:selectItem itemLabel="Free Response" itemValue="freeResponse"/>
+                                    <f:selectItem itemLabel="Multiple Choice" itemValue="multiple"/>
+                                    <f:selectItem itemLabel="True/False" itemValue="true_false"/>
+                                    <f:selectItem itemLabel="Short Answer" itemValue="short"/>
+                                    <f:selectItem itemLabel="Free Response" itemValue="free_response"/>
                                 </p:selectOneMenu>
                         
                         <p:outputLabel value="Question Media: " for="questionMedia" />

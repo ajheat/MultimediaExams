@@ -1,15 +1,87 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <!--
-Created by Aaron Newman on 2017.04.25 
-Copyright © 2017 Aaron Newman. All rights reserved.
+Created by Andrew Heatwole on 2017.04.02
+Copyright © 2017 Andrew Heatwole. All rights reserved.
 -->
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-    <head>
-        <title>TODO supply a title</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    </head>
-    <body>
-        <div>TODO write content</div>
-    </body>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template/siteTemplate.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="Take Test"></h:outputText>
+        </ui:define>
+
+        <ui:define name="editableContent">
+            <div align="center" style="width:97%">
+
+                <p:growl id="growl" life="4000" />
+                <h:form id="TeacherTestListForm">
+                <p:panel header="#{bundle.ListTestTitle}">
+                    <p:dataTable id="datalist" value="#{testController.items}" var="item"
+                                 selectionMode="single" selection="#{testController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.id}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+
+                        <p:ajax event="rowSelect"   update="takeTestButton"/>
+                        <p:ajax event="rowUnselect" update="takeTestButton"/>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTestTitle_testName}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.testName}"/>
+                        </p:column>
+                        <p:column style="width: 80px; text-align: center;">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTestTitle_numQuestions}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.numQuestions}"/>
+                        </p:column>
+                        <p:column style="width: 90px; text-align: center;">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTestTitle_totalPoints}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.totalPoints}"/>
+                        </p:column>
+                        <p:column style="width: 130px; text-align: center;">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTestTitle_dueDate}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.dueDate}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column style="width: 80px; text-align: center;">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTestTitle_status}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.getStatus()}"/>
+                        </p:column>
+                        <f:facet name="footer">
+                            
+                            <p:commandButton id="takeTestButton"   icon="ui-icon-clipboard" 
+                                             value="Take Test" styleClass="commandButton" 
+                                             actionListener="#{testController.studentQuestionSummary}"
+                                             disabled="#{empty testController.selected}"/>
+                            
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+
+                <ui:include src="TestCreate.xhtml"/>
+                <ui:include src="TestEdit.xhtml"/>
+            </div>
+        </ui:define>
+    </ui:composition>
+
 </html>
