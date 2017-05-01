@@ -13,22 +13,56 @@
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{questionController.selected != null}">
                         <p:outputLabel value="#{bundle.CreateQuestionLabel_question}" for="question" />
-                        <p:inputTextarea rows="4" cols="30" id="question" value="#{questionController.selected.question}" title="#{bundle.CreateQuestionTitle_question}" required="true" requiredMessage="#{bundle.CreateQuestionRequiredMessage_question}"/>
+                        <p:inputTextarea rows="6" cols="60" id="question" value="#{questionController.selected.question}" 
+                                         title="#{bundle.CreateQuestionTitle_question}" required="true" 
+                                         requiredMessage="#{bundle.CreateQuestionRequiredMessage_question}"
+                                         placeholder="Enter Question"/>
+                        
                         <p:outputLabel value="#{bundle.CreateQuestionLabel_summary}" for="summary" />
-                        <p:inputText id="summary" value="#{questionController.selected.summary}" title="#{bundle.CreateQuestionTitle_summary}" required="true" requiredMessage="#{bundle.CreateQuestionRequiredMessage_summary}"/>
+                        <p:inputTextarea rows="1" cols="60" id="summary" value="#{questionController.selected.summary}" 
+                                     title="#{bundle.CreateQuestionTitle_summary}" required="true" 
+                                     requiredMessage="#{bundle.CreateQuestionRequiredMessage_summary}"
+                                     placeholder="Enter a summary for the question"/>
+                        
                         <p:outputLabel value="#{bundle.CreateQuestionLabel_questionType}" for="questionType" />
-                        <p:inputText id="questionType" value="#{questionController.selected.questionType}" title="#{bundle.CreateQuestionTitle_questionType}" required="true" requiredMessage="#{bundle.CreateQuestionRequiredMessage_questionType}"/>
+                        <p:selectOneMenu id="questionType" value="#{questionController.selected.questionType}" required="true"
+                                         requiredMessage="#{bundle.CreateQuestionRequiredMessage_questionType}">
+                                    <f:selectItem itemLabel="Select Question Type" itemValue=""/>
+                                    <f:selectItem itemLabel="Multiple Choice" itemValue="multipleChoice"/>
+                                    <f:selectItem itemLabel="True/False" itemValue="trueFalse"/>
+                                    <f:selectItem itemLabel="Short Answer" itemValue="shortAnswer"/>
+                                    <f:selectItem itemLabel="Free Response" itemValue="freeResponse"/>
+                                </p:selectOneMenu>
+                        
+                        <p:outputLabel value="Question Media: " for="questionMedia" />
+                        <p:commandButton id="questionMedia" value="Select File" ajax="false" styleClass="commandButton"
+                                         action="#{questionController.selectFile()}" icon="ui-icon-arrowthick-1-n" />
+                        
+                        <p:outputLabel value="#{bundle.CreateQuestionLabel_mediaPath}" for="mediaPath" />
+                        <p:inputTextarea rows="1" cols="60"  id="mediaPath" value="#{questionController.selected.mediaPath}" 
+                                     title="#{bundle.CreateQuestionTitle_mediaPath}" required="false"
+                                     placeholder="Enter Image or Video URL for media"/>
+                        
+                        
                         <p:outputLabel value="#{bundle.CreateQuestionLabel_correctAnswer}" for="correctAnswer" />
-                        <p:inputText id="correctAnswer" value="#{questionController.selected.correctAnswer}" title="#{bundle.CreateQuestionTitle_correctAnswer}" />
+                        <p:inputTextarea rows="1" cols="30" id="correctAnswer" value="#{questionController.selected.correctAnswer}" 
+                                     title="#{bundle.CreateQuestionTitle_correctAnswer}" 
+                                     placeholder="Enter the correct answer"/>
+                        
                         <p:outputLabel value="#{bundle.CreateQuestionLabel_points}" for="points" />
-                        <p:inputText id="points" value="#{questionController.selected.points}" title="#{bundle.CreateQuestionTitle_points}" />
+                        <p:inputTextarea rows="1" cols="30" id="points" value="#{questionController.selected.points}" 
+                                     title="#{bundle.CreateQuestionTitle_points}"
+                                     placeholder="Enter the point value of this question"/>
+                    
                     </p:panelGrid>
                     <div align="center">
                     <p:commandButton actionListener="#{questionController.create}"
                                      value="#{bundle.Save}" update="display,:QuestionListForm:datalist,:growl"
                                      styleClass="commandButton" ajax="false" icon="ui-icon-plus"
                                      oncomplete="handleSubmit(args,'QuestionCreateDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="QuestionCreateDialog.hide()"/>
+                    &nbsp;
+                    <p:commandButton value="#{bundle.Cancel}" onclick="QuestionCreateDialog.hide()"
+                                     icon="ui-icon-cancel" styleClass="commandButton"/>
                     </div>
                 </h:panelGroup>
             </h:form>
