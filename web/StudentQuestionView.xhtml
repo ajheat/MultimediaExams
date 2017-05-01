@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Created by Aaron Newman on 2017.05.01 
+Copyright © 2017 Aaron Newman. All rights reserved.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template/siteTemplate.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListQuestionTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="editableContent">
+            <div align="center" style="width:97%">
+                <p:growl id="growl" life="4000" />
+                <h:form id="StudentQuestionView">
+                    <p:panel header="Questions for #{testController.selected.testName}">
+                        <p:dataTable id="datalist" value="#{testController.testQuestions}" var="item"
+                                     selectionMode="single" selection="#{questionController.selected}"
+                                     paginator="true"
+                                     rowKey="#{item.id}"
+                                     rows="10"
+                                     rowsPerPageTemplate="10,15,20,30,40,50"
+                                     styleClass="dataTable"
+                                     >
+
+                            <p:ajax event="rowSelect"   update="answerButton viewButton sumbitButton"/>
+                            <p:ajax event="rowUnselect" update="answerButton viewButton sumbitButton"/>
+
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListQuestionTitle_summary}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.summary}"/>
+                            </p:column>
+                            <p:column style="width: 130px; text-align: center;">
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListQuestionTitle_questionType}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.textQuestionType()}"/>
+                            </p:column>
+                            
+                            
+                            <p:column style="width: 90px; text-align: center">
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListQuestionTitle_points}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.points}"/>
+                            </p:column>
+                            <f:facet name="footer">
+
+                                <p:commandButton id="answerButton"   icon="ui-icon-pencil" 
+                                                 value="Answer Question" update=":QuestionAnswerForm" 
+                                                 oncomplete="PF('QuestionAnswerDialog').show()" 
+                                                 styleClass="commandButton"
+                                                 disabled="#{empty questionController.selected}"/>
+                                <p:commandButton id="viewButton"   icon="ui-icon-search" 
+                                                 value="#{bundle.View}" styleClass="commandButton" 
+                                                 oncomplete="PF('QuestionViewDialog').show()" 
+                                                 disabled="#{empty questionController.selected}"/>
+                                <p:commandButton id="sumbitButton" icon="ui-icon-trash"  value="Submit Test" 
+                                                 styleClass="commandButton" actionListener="#{testContoller.sumbit}" 
+                                                 update=":growl,datalist" disabled="#{empty questionController.selected}">
+
+                                    <p:confirm header="Confirmation" 
+                                               message="Are you sure you want to submit your test? Make sure you have answered all the questions. 
+                                               Blank questions will recieve a 0. " 
+                                               icon="ui-icon-alert" />
+                                </p:commandButton>
+
+                                <p:confirmDialog id="confirmDialogBox" global="true" showEffect="fade" hideEffect="fade">
+                                    <div align="center">
+                                        <!-- The value of the first button listed below will be shown as 
+                                        highlighted (default action) when displayed -->
+                                        <p:commandButton value="No" type="button" 
+                                                         styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                                        &nbsp;
+                                        <p:commandButton value="Yes" type="button" 
+                                                         styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                                    </div>
+                                </p:confirmDialog>
+                            </f:facet>
+                        </p:dataTable>
+                    </p:panel>
+                </h:form>
+            </div>
+            <ui:include src="AnswerQuestion.xhtml"/>
+            <ui:include src="View.xhtml"/>
+
+        </ui:define>
+    </ui:composition>
+
+</html>

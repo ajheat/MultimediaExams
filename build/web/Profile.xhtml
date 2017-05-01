@@ -2,7 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
     <!-- Do not enter tags before the composition line since they are ignored by JSF -->
 
@@ -107,13 +108,25 @@
                                     <!-- ****************** Delete Account End **************************** -->
                                 </li>
 
-                                <li class="verticalMenuItem">
-                                    <!-- MY FILES -->
-                                    <h:link outcome="UserFiles">
-                                        <i class="fa fa-files-o">&nbsp;</i>My Files
-                                    </h:link>
-                                </li>
+                                
 
+                                <c:if test="#{accountManager.studentIsLoggedIn() == true}">
+                                    <li class="verticalMenuItem">
+                                        <!-- MY FILES -->
+                                        <h:link outcome="TakeTest">
+                                            <i class="fa fa-files-o">&nbsp;</i>Take Test
+                                        </h:link>
+                                    </li>
+                                </c:if>
+                                
+                                <c:if test="#{accountManager.teacherIsLoggedIn() == true}">
+                                    <li class="verticalMenuItem">
+                                        <!-- MY FILES -->
+                                        <h:link outcome="UserFiles">
+                                            <i class="fa fa-files-o">&nbsp;</i>My Files
+                                        </h:link>
+                                    </li>
+                                </c:if>
                                 <li class="verticalMenuItem">
                                     <!-- SIGN OUT -->
                                     <h:commandLink action="#{accountManager.logout()}">
@@ -176,7 +189,7 @@
             </h:form>
 
             <ui:include src="DeleteAccountDialog.xhtml"/>
-
+            
         </ui:define>
 
     </ui:composition>
