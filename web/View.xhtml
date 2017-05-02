@@ -8,7 +8,7 @@
 
     <ui:composition>
 
-        <p:dialog id="QuestionViewDlg" widgetVar="QuestionViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewQuestionTitle}" width="97%" >
+        <p:dialog id="QuestionViewDlg" widgetVar="QuestionViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewQuestionTitle}" >
             <h:form id="QuestionViewForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{questionController.selected != null}">
