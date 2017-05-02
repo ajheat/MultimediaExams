@@ -20,8 +20,10 @@
                         <p:inputText id="summary" value="#{questionController.selected.summary}" title="#{bundle.EditQuestionTitle_summary}" required="true" requiredMessage="#{bundle.EditQuestionRequiredMessage_summary}"/>
                         <p:outputLabel value="#{bundle.EditQuestionLabel_questionType}" for="questionType" />
                         <p:inputText id="questionType" value="#{questionController.selected.questionType}" title="#{bundle.EditQuestionTitle_questionType}" required="true" requiredMessage="#{bundle.EditQuestionRequiredMessage_questionType}"/>
-                        <p:outputLabel value="#{bundle.EditQuestionLabel_choices}" for="choices" />
-                        <p:inputText id="choices" value="#{questionController.selected.choices}" title="#{bundle.EditQuestionTitle_choices}" />
+                        
+                        <p:outputLabel value="#{bundle.EditQuestionLabel_choices}" for="chips" />
+                            <p:chips id="chips" value="#{questionController.selected.choices}"/>
+                        
                         <p:outputLabel value="#{bundle.EditQuestionLabel_correctAnswer}" for="correctAnswer" />
                         <p:inputText id="correctAnswer" value="#{questionController.selected.correctAnswer}" title="#{bundle.EditQuestionTitle_correctAnswer}" />
                         <p:outputLabel value="#{bundle.EditQuestionLabel_mediaPath}" for="mediaPath" />
