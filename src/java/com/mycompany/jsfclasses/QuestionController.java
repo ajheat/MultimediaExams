@@ -112,8 +112,6 @@ public class QuestionController implements Serializable {
         }
     }
     
-    
-
     public Question getQuestion(java.lang.Integer id) {
         return getFacade().find(id);
     }
@@ -126,6 +124,11 @@ public class QuestionController implements Serializable {
         return getFacade().findAll();
     }
 
+    // need to implement for selecting a file during question creation
+    public String selectFile() {
+            return "";
+        }
+    
     @FacesConverter(forClass = Question.class)
     public static class QuestionControllerConverter implements Converter {
 
