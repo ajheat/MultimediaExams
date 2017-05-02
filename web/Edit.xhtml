@@ -31,8 +31,15 @@
                         <p:outputLabel value="#{bundle.EditQuestionLabel_points}" for="points" />
                         <p:inputText id="points" value="#{questionController.selected.points}" title="#{bundle.EditQuestionTitle_points}" />
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{questionController.update}" value="#{bundle.Save}" update="display,:QuestionListForm:datalist,:growl" oncomplete="handleSubmit(args, 'QuestionEditDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="QuestionEditDialog.hide()"/>
+                    <div align="center">
+                    <p:commandButton actionListener="#{questionController.update}" value="#{bundle.Save}" 
+                                     update="display,:QuestionListForm:datalist,:growl" 
+                                     oncomplete="handleSubmit(args, 'QuestionEditDialog');"
+                                     onclick="QuestionEditDialog.hide()"
+                                     icon="ui-icon-disk" styleClass="commandButton"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="QuestionEditDialog.hide()"
+                                     icon="ui-icon-cancel" styleClass="commandButton"/>
+                    </div>
                 </h:panelGroup>
             </h:form>
         </p:dialog>
