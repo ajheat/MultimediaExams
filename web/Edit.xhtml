@@ -13,23 +13,45 @@
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{questionController.selected != null}">
                         <p:outputLabel value="#{bundle.EditQuestionLabel_id}" for="id" />
-                        <p:inputText id="id" value="#{questionController.selected.id}" title="#{bundle.EditQuestionTitle_id}" required="true" requiredMessage="#{bundle.EditQuestionRequiredMessage_id}"/>
+                        <p:inputText id="id" value="#{questionController.selected.id}" 
+                                     title="#{bundle.EditQuestionTitle_id}" required="true" 
+                                     requiredMessage="#{bundle.EditQuestionRequiredMessage_id}"/>
+                        
                         <p:outputLabel value="#{bundle.EditQuestionLabel_question}" for="question" />
-                        <p:inputTextarea rows="4" cols="30" id="question" value="#{questionController.selected.question}" title="#{bundle.EditQuestionTitle_question}" required="true" requiredMessage="#{bundle.EditQuestionRequiredMessage_question}"/>
+                        <p:inputTextarea rows="6" cols="60" id="question" value="#{questionController.selected.question}" 
+                                         title="#{bundle.EditQuestionTitle_question}" required="true" 
+                                         requiredMessage="#{bundle.EditQuestionRequiredMessage_question}"/>
+                        
                         <p:outputLabel value="#{bundle.EditQuestionLabel_summary}" for="summary" />
-                        <p:inputText id="summary" value="#{questionController.selected.summary}" title="#{bundle.EditQuestionTitle_summary}" required="true" requiredMessage="#{bundle.EditQuestionRequiredMessage_summary}"/>
+                        <p:inputTextarea rows="1" cols="60" id="summary" value="#{questionController.selected.summary}" 
+                                     title="#{bundle.EditQuestionTitle_summary}" required="true" 
+                                     requiredMessage="#{bundle.EditQuestionRequiredMessage_summary}"/>
+                        
                         <p:outputLabel value="#{bundle.EditQuestionLabel_questionType}" for="questionType" />
-                        <p:inputText id="questionType" value="#{questionController.selected.questionType}" title="#{bundle.EditQuestionTitle_questionType}" required="true" requiredMessage="#{bundle.EditQuestionRequiredMessage_questionType}"/>
+                        <p:selectOneMenu id="questionType" value="#{questionController.selected.questionType}" 
+                                         title="#{bundle.EditQuestionTitle_questionType}" required="true"
+                                         requiredMessage="#{bundle.EditQuestionRequiredMessage_questionType}">
+                            <f:selectItem itemLabel="Select Question Type" itemValue=""/>
+                            <f:selectItem itemLabel="Multiple Choice" itemValue="multiple"/>
+                            <f:selectItem itemLabel="True/False" itemValue="true_false"/>
+                            <f:selectItem itemLabel="Short Answer" itemValue="short"/>
+                            <f:selectItem itemLabel="Free Response" itemValue="free_response"/>
+                        </p:selectOneMenu>
+                        
+                        <p:outputLabel value="#{bundle.EditQuestionLabel_mediaPath}" for="mediaPath" />
+                        <p:inputTextarea rows="1" cols="60" id="mediaPath" value="#{questionController.selected.mediaPath}" 
+                                     title="#{bundle.EditQuestionTitle_mediaPath}" />
                         
                         <p:outputLabel value="#{bundle.EditQuestionLabel_choices}" for="chips" />
                             <p:chips id="chips" value="#{questionController.selected.choices}"/>
                         
                         <p:outputLabel value="#{bundle.EditQuestionLabel_correctAnswer}" for="correctAnswer" />
-                        <p:inputText id="correctAnswer" value="#{questionController.selected.correctAnswer}" title="#{bundle.EditQuestionTitle_correctAnswer}" />
-                        <p:outputLabel value="#{bundle.EditQuestionLabel_mediaPath}" for="mediaPath" />
-                        <p:inputText id="mediaPath" value="#{questionController.selected.mediaPath}" title="#{bundle.EditQuestionTitle_mediaPath}" />
+                        <p:inputTextarea rows="1" cols="30" id="correctAnswer" value="#{questionController.selected.correctAnswer}" 
+                                     title="#{bundle.EditQuestionTitle_correctAnswer}" />
+                        
                         <p:outputLabel value="#{bundle.EditQuestionLabel_points}" for="points" />
-                        <p:inputText id="points" value="#{questionController.selected.points}" title="#{bundle.EditQuestionTitle_points}" />
+                        <p:inputTextarea rows="1" cols="30" id="points" value="#{questionController.selected.points}" 
+                                     title="#{bundle.EditQuestionTitle_points}" />
                     </p:panelGrid>
                     <div align="center">
                     <p:commandButton actionListener="#{questionController.update}" value="#{bundle.Save}" 
