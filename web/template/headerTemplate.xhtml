@@ -58,6 +58,8 @@ Copyright © 2017 Osman Balci. All rights reserved.
                             <i class="fa fa-home">&nbsp;</i>Home
                         </h:link>&nbsp;&nbsp;
 
+                        <!-- Clicking "Home" displays the index.xhtml file -->
+
                         <!-- "Sign Out" and "My Account" if a STUDENT is signed in -->
                         <c:if test="#{accountManager.studentIsLoggedIn() == true}">
                             <!-- Clicking "Sign Out" invokes accountManager's logout() method -->
@@ -70,10 +72,7 @@ Copyright © 2017 Osman Balci. All rights reserved.
                                 <i class="fa fa-user">&nbsp;</i>My Account
                             </h:link>&nbsp;&nbsp;
 
-                            <!-- Clicking "My Files" displays the UserFiles.xhtml file -->
-                            <h:link outcome="UserFiles" styleClass="arialTen">
-                                <i class="fa fa-files-o">&nbsp;</i>STUDENT
-                            </h:link>&nbsp;&nbsp;
+                            
                         </c:if>
                         
                         <!-- "Sign Out" and "My Account" if a TEACHER is signed in -->

@@ -6,6 +6,7 @@
 package com.mycompany.entityclasses;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -67,7 +68,7 @@ public class Question implements Serializable {
     private String questionType;
     @Size(max = 2048)
     @Column(name = "choices")
-    private String choices;
+    private ArrayList choices;
     @Size(max = 2048)
     @Column(name = "correct_answer")
     private String correctAnswer;
@@ -133,16 +134,21 @@ public class Question implements Serializable {
                 return "Unknown";
         }
     }
+    
+    public void answer()
+    {
+        System.out.println("ANSWERED");
+    }
 
     public void setQuestionType(String questionType) {
         this.questionType = questionType;
     }
 
-    public String getChoices() {
+    public ArrayList getChoices() {
         return choices;
     }
 
-    public void setChoices(String choices) {
+    public void setChoices(ArrayList choices) {
         this.choices = choices;
     }
 
