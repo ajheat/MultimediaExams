@@ -76,7 +76,8 @@
                                              disabled="#{empty questionController.selected}"/>
                             <p:commandButton id="deleteButton" icon="ui-icon-trash"  
                                              value="#{bundle.Delete}" update=":growl,datalist" 
-                                             styleClass="commandButton" disabled="#{empty questionController.selected}" >
+                                             styleClass="commandButton" disabled="#{empty questionController.selected}"
+                                             action="#{testController.changePoints(questionController.selected.points, 0)}">
                                 <f:actionListener binding="#{questionController.destroy()}" />
                                 <f:actionListener binding="#{testController.removeQuestion()}" />
                             </p:commandButton>

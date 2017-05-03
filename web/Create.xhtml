@@ -65,7 +65,8 @@
                     <div align="center">
                         <p:commandButton value="#{bundle.Save}" update="display,:QuestionListForm:datalist,:growl"
                                          styleClass="commandButton" ajax="false" icon="ui-icon-plus"
-                                         oncomplete="handleSubmit(args,'QuestionCreateDialog');">
+                                         oncomplete="handleSubmit(args,'QuestionCreateDialog');"
+                                         action="#{testController.changePoints(0, questionController.selected.points)}">
                             <f:actionListener binding="#{questionController.create()}" />
                             <f:actionListener binding="#{testController.addQuestion()}" />
                         </p:commandButton>
