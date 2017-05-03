@@ -101,6 +101,14 @@ public class TestController implements Serializable {
             update();
         }
     }
+    
+    public void changePoints(int oldVal, int newVal) {
+        if (selected != null) {
+            int delta = newVal - oldVal;
+            selected.setTotalPoints(selected.getTotalPoints() + delta);
+            update();
+        }
+    }
 
     public List<Test> getItems() {
         if (items == null) {
