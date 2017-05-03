@@ -75,9 +75,11 @@
                                              oncomplete="PF('QuestionViewDialog').show()" 
                                              disabled="#{empty questionController.selected}"/>
                             <p:commandButton id="deleteButton" icon="ui-icon-trash"  
-                                             value="#{bundle.Delete}" actionListener="#{questionController.destroy}" 
-                                             update=":growl,datalist" styleClass="commandButton"
-                                             disabled="#{empty questionController.selected}"/>
+                                             value="#{bundle.Delete}" update=":growl,datalist" 
+                                             styleClass="commandButton" disabled="#{empty questionController.selected}" >
+                                <f:actionListener binding="#{questionController.destroy()}" />
+                                <f:actionListener binding="#{testController.removeQuestion()}" />
+                            </p:commandButton>
                             <p:button id="returnButton"   icon=" ui-icon-arrowreturn-1-w" 
                                           value="#{bundle.Return}" outcome="TeacherTestList"
                                           styleClass="commandButton"/>

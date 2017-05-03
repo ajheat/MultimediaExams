@@ -87,6 +87,20 @@ public class TestController implements Serializable {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
+    
+    public void addQuestion() {
+        if (selected != null) {
+            selected.setNumQuestions(selected.getNumQuestions() + 1);
+            update();
+        }
+    }
+    
+    public void removeQuestion() {
+        if (selected != null) {
+            selected.setNumQuestions(selected.getNumQuestions() - 1);
+            update();
+        }
+    }
 
     public List<Test> getItems() {
         if (items == null) {

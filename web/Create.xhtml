@@ -63,10 +63,12 @@
 
                     </p:panelGrid>
                     <div align="center">
-                        <p:commandButton actionListener="#{questionController.create}"
-                                         value="#{bundle.Save}" update="display,:QuestionListForm:datalist,:growl"
+                        <p:commandButton value="#{bundle.Save}" update="display,:QuestionListForm:datalist,:growl"
                                          styleClass="commandButton" ajax="false" icon="ui-icon-plus"
-                                         oncomplete="handleSubmit(args,'QuestionCreateDialog');"/>
+                                         oncomplete="handleSubmit(args,'QuestionCreateDialog');">
+                            <f:actionListener binding="#{questionController.create()}" />
+                            <f:actionListener binding="#{testController.addQuestion()}" />
+                        </p:commandButton>
                         &nbsp;
                         <p:commandButton value="#{bundle.Cancel}" onclick="QuestionCreateDialog.hide()"
                                          icon="ui-icon-cancel" styleClass="commandButton"/>
