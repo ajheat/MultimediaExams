@@ -9,7 +9,7 @@
     <ui:composition>
 
         <p:dialog id="QuestionEditDlg" widgetVar="QuestionEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditQuestionTitle}">
-            <h:form id="QuestionEditForm">
+            <h:form id="QuestionEditForm" enctype="multipart/form-data">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{questionController.selected != null}">
                         <p:outputLabel value="#{bundle.EditQuestionLabel_id}" for="id" />
@@ -37,6 +37,10 @@
                             <f:selectItem itemLabel="Short Answer" itemValue="short"/>
                             <f:selectItem itemLabel="Free Response" itemValue="free_response"/>
                         </p:selectOneMenu>
+                        
+                        <p:outputLabel value="Question Media: " for="questionMedia" />
+                        <p:fileUpload id="questionMedia" fileUploadListener="#{fileUploadManager.handleFileUpload}"
+                                      mode="simple" skinSimple="true" value="#{fileUploadManager.uploadedFile}"/>
                         
                         <p:outputLabel value="#{bundle.EditQuestionLabel_mediaPath}" for="mediaPath" />
                         <p:inputTextarea rows="1" cols="60" id="mediaPath" value="#{questionController.selected.mediaPath}" 
