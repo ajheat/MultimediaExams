@@ -7,6 +7,8 @@ package com.mycompany.entityclasses;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -78,7 +80,6 @@ public class Question implements Serializable {
     @Column(name = "points")
     private Integer points;
 
-
     public Question() {
     }
 
@@ -119,6 +120,15 @@ public class Question implements Serializable {
 
     public String getQuestionType() {
         return questionType;
+    }
+    
+    public List<String> option()
+    {
+                System.out.println("TEST##################");
+                System.out.println(choices);
+
+        List<String> temp = Arrays.asList(choices.split(","));
+        return temp;
     }
 
     public String textQuestionType() {
