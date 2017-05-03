@@ -68,13 +68,13 @@
                             <p:commandButton id="editButton"   icon="ui-icon-pencil" 
                                              value="#{bundle.Edit}" update=":QuestionEditForm" 
                                              oncomplete="PF('QuestionEditDialog').show()" 
-                                             styleClass="commandButton"
+                                             styleClass="commandButton" action="#{questionController.stashValues()}"
                                              disabled="#{empty questionController.selected}"/>
                             <p:commandButton id="viewButton"   icon="ui-icon-search" 
                                              value="#{bundle.View}" styleClass="commandButton" 
                                              oncomplete="PF('QuestionViewDialog').show()" 
                                              disabled="#{empty questionController.selected}"/>
-                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"
                                              value="#{bundle.Delete}" update=":growl,datalist" 
                                              styleClass="commandButton" disabled="#{empty questionController.selected}"
                                              action="#{testController.changePoints(questionController.selected.points, 0)}">

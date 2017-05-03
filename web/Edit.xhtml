@@ -64,6 +64,7 @@
                                      update="display,:QuestionListForm:datalist,:growl" 
                                      oncomplete="handleSubmit(args, 'QuestionEditDialog');"
                                      onclick="QuestionEditDialog.hide()"
+                                     action="#{testController.changePoints(questionController.stashedPoints, questionController.selected.points)}"
                                      icon="ui-icon-disk" styleClass="commandButton"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="QuestionEditDialog.hide()"
                                      icon="ui-icon-cancel" styleClass="commandButton"/>
