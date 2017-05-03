@@ -68,7 +68,7 @@ public class Question implements Serializable {
     private String questionType;
     @Size(max = 2048)
     @Column(name = "choices")
-    private ArrayList choices;
+    private String choices;
     @Size(max = 2048)
     @Column(name = "correct_answer")
     private String correctAnswer;
@@ -77,6 +77,7 @@ public class Question implements Serializable {
     private String mediaPath;
     @Column(name = "points")
     private Integer points;
+
 
     public Question() {
     }
@@ -134,9 +135,8 @@ public class Question implements Serializable {
                 return "Unknown";
         }
     }
-    
-    public void answer()
-    {
+
+    public void answer() {
         System.out.println("ANSWERED");
     }
 
@@ -144,11 +144,17 @@ public class Question implements Serializable {
         this.questionType = questionType;
     }
 
-    public ArrayList getChoices() {
+    public String getChoices() {
         return choices;
     }
 
-    public void setChoices(ArrayList choices) {
+    public void setChoices(String choices) {
+        //StringBuilder c = new StringBuilder();
+        //for (String s : choicesTemp) {
+        //    c.append(s);
+        //    c.append("\t");
+       // }
+                        //for chips
         this.choices = choices;
     }
 

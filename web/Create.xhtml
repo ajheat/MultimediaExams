@@ -43,10 +43,13 @@
                                          title="#{bundle.CreateQuestionTitle_mediaPath}" required="false"
                                          placeholder="Enter Image or Video URL for media"/>
                         
-                            <p:outputLabel for="chips" value="Multiple Choice Answers: " />
-                            <p:chips id="chips" value="#{questionController.selected.choices}" 
-                                         title="#{bundle.CreateQuestionTitle_choices}" />
-
+                        
+                        
+                        
+                        <p:outputLabel for="choices" value="Multiple Choice Answers: " />
+                        <p:inputTextarea rows="1" cols="30" id="choices" value="#{questionController.selected.choices}" 
+                                         title="#{bundle.CreateQuestionTitle_choices}" 
+                                         placeholder="Enter the choices, seperated by a comma"/>
 
                         <p:outputLabel value="#{bundle.CreateQuestionLabel_correctAnswer}" for="correctAnswer" />
                         <p:inputTextarea rows="1" cols="30" id="correctAnswer" value="#{questionController.selected.correctAnswer}" 
@@ -68,6 +71,12 @@
                         <p:commandButton value="#{bundle.Cancel}" onclick="QuestionCreateDialog.hide()"
                                          icon="ui-icon-cancel" styleClass="commandButton"/>
                     </div>
+                    <!--
+                            <p:outputLabel for="chips" value="Multiple Choice Answers: " />
+                            <p:chips id="chips" value="#{questionController.selected.choices}" 
+                                         title="#{bundle.CreateQuestionTitle_choices}" />
+
+                        -->
                 </h:panelGroup>
             </h:form>
         </p:dialog>
