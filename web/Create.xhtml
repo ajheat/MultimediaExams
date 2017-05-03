@@ -9,7 +9,7 @@
     <ui:composition>
 
         <p:dialog id="QuestionCreateDlg" widgetVar="QuestionCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateQuestionTitle}">
-            <h:form id="QuestionCreateForm">
+            <h:form id="QuestionCreateForm" enctype="multipart/form-data">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{questionController.selected != null}">
                         <p:outputLabel value="#{bundle.CreateQuestionLabel_question}" for="question" />
@@ -35,8 +35,8 @@
                         </p:selectOneMenu>
 
                         <p:outputLabel value="Question Media: " for="questionMedia" />
-                        <p:commandButton id="questionMedia" value="Select File" ajax="false" styleClass="commandButton"
-                                         action="#{questionController.selectFile()}" icon="ui-icon-arrowthick-1-n" />
+                        <p:fileUpload id="questionMedia" fileUploadListener="#{fileUploadManager.handleFileUpload}"
+                                      mode="simple" skinSimple="true" value="#{fileUploadManager.uploadedFile}"/>
 
                         <p:outputLabel value="#{bundle.CreateQuestionLabel_mediaPath}" for="mediaPath" />
                         <p:inputTextarea rows="1" cols="60"  id="mediaPath" value="#{questionController.selected.mediaPath}" 
