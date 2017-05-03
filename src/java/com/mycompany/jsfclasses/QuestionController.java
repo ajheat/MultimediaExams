@@ -31,6 +31,7 @@ public class QuestionController implements Serializable {
     private Question selected;
     private List<String> options = null;
     private String option = null;
+    private int stashedPoints = 0;
 
     public QuestionController() {
     }
@@ -76,6 +77,16 @@ public class QuestionController implements Serializable {
         }
         return options;
 
+    }
+    
+    public void stashValues() {
+        if (selected != null) {
+            stashedPoints = selected.getPoints();
+        }
+    }
+    
+    public int getStashedPoints() {
+        return stashedPoints;
     }
 
     public void update() {
