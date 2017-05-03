@@ -46,8 +46,10 @@
                         <p:inputTextarea rows="1" cols="60" id="mediaPath" value="#{questionController.selected.mediaPath}" 
                                      title="#{bundle.EditQuestionTitle_mediaPath}" />
                         
-                        <p:outputLabel value="#{bundle.EditQuestionLabel_choices}" for="chips" />
-                            <p:chips id="chips" value="#{questionController.selected.choices}"/>
+                       <p:outputLabel for="choices" value="Multiple Choice Answers: " />
+                        <p:inputTextarea rows="1" cols="30" id="choices" value="#{questionController.selected.choices}" 
+                                         title="#{bundle.EditQuestionTitle_choices}" 
+                                         placeholder="Enter the choices, seperated by a comma"/>
                         
                         <p:outputLabel value="#{bundle.EditQuestionLabel_correctAnswer}" for="correctAnswer" />
                         <p:inputTextarea rows="1" cols="30" id="correctAnswer" value="#{questionController.selected.correctAnswer}" 

@@ -40,8 +40,8 @@ Copyright © 2017 Aaron Newman. All rights reserved.
                         <h3 style="margin-top:0">Basic</h3>
                         <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
                             <p:outputLabel for="multipleChoice" value="Multiple Choice: " />
-                            <p:selectOneRadio id="multipleChoice" value="#{radioView.city}"  layout="grid" columns="3">
-                                <f:selectItems value="#{questionController.option}" var="c" itemLabel="#{option}" itemValue="#{option}"/>
+                            <p:selectOneRadio id="multipleChoice" value="{questionController.selected.answer}"  layout="grid" columns="3">
+                                <f:selectItems value="#{questionController.options}" var="c" itemLabel="#{option}" itemValue="#{option}"/>
                             </p:selectOneRadio>
                         </h:panelGrid>
                     </c:if>

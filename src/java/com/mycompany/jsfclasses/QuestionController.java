@@ -7,6 +7,7 @@ import com.mycompany.jsfclasses.util.JsfUtil.PersistAction;
 import com.mycompany.sessionbeans.QuestionFacade;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -28,6 +29,8 @@ public class QuestionController implements Serializable {
     private com.mycompany.sessionbeans.QuestionFacade ejbFacade;
     private List<Question> items = null;
     private Question selected;
+    private List<String> options = null;
+    private String option = null;
 
     public QuestionController() {
     }
@@ -61,6 +64,18 @@ public class QuestionController implements Serializable {
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
+    }
+
+    public List<String> getOptions() {
+        System.out.println("TEST##################");
+        System.out.println(selected.getChoices());
+        if (selected.getChoices() != null) {
+            options = Arrays.asList(selected.getChoices().split(","));
+        } else {
+            options.add("No choices provided");
+        }
+        return options;
+
     }
 
     public void update() {
@@ -111,7 +126,7 @@ public class QuestionController implements Serializable {
             }
         }
     }
-    
+
     public Question getQuestion(java.lang.Integer id) {
         return getFacade().find(id);
     }
@@ -126,9 +141,9 @@ public class QuestionController implements Serializable {
 
     // need to implement for selecting a file during question creation
     public String selectFile() {
-            return "";
-        }
-    
+        return "";
+    }
+
     @FacesConverter(forClass = Question.class)
     public static class QuestionControllerConverter implements Converter {
 
