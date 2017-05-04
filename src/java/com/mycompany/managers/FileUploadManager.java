@@ -186,7 +186,7 @@ public class FileUploadManager implements Serializable {
     }
     
     public void uploadMedia() throws IOException {
-        if (getUploadedFile() != null) {
+        try {
             UploadedFile media = getUploadedFile();
             
             String user_name = (String) FacesContext.getCurrentInstance()
@@ -200,7 +200,11 @@ public class FileUploadManager implements Serializable {
             multiple files with the same name.
              */
             String userId_filename = user.getId() + "_" + media.getFileName();
-
+            
+            if (media.getFileName().equals("")) {
+                return;
+            }
+            
             /*
             "The try-with-resources statement is a try statement that declares one or more resources. 
             A resource is an object that must be closed after the program is finished with it. 
@@ -221,7 +225,7 @@ public class FileUploadManager implements Serializable {
                 <> user_id = user
              */
             UserFile newUserFile = new UserFile(userId_filename, user);
-
+            
             /*
             ==============================================================
             If the userId_filename was used before, delete the earlier file.
@@ -251,9 +255,10 @@ public class FileUploadManager implements Serializable {
 
             resultMsg = new FacesMessage("File(s) Uploaded Successfully!");
             FacesContext.getCurrentInstance().addMessage(null, resultMsg);
+            } catch (IOException e) {
+            resultMsg = new FacesMessage("No file uploaded.");
+            FacesContext.getCurrentInstance().addMessage(null, resultMsg);
         }
-        
-        
     }
 
     // Show the File Upload Page
