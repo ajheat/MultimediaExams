@@ -123,6 +123,15 @@ public class AnsweredQuestionController implements Serializable {
         }
         return answeredQuestion.getAnswer();
     }
+    
+    public int getPoints(int userId, int qId) {
+
+        AnsweredQuestion answeredQuestion = getFacade().findByQuestionIdAndUser(qId, userId);
+        if (answeredQuestion == null) {
+            return 11;
+        }
+        return answeredQuestion.getPoints();
+    }
 
     public void update() {
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("AnsweredQuestionUpdated"));

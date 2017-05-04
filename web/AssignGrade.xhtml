@@ -103,6 +103,13 @@
                             <h:outputText value="#{answeredQuestionController.viewAnswer(userController.selected.id, item.id)}"/>
 
                         </p:column>
+                        <p:column style="width: 90px; text-align: center">
+                            <f:facet name="header">
+                                <h:outputText value="Grade"/>
+                            </f:facet> 
+                            <h:outputText value="#{answeredQuestionController.getPoints(userController.selected.id, item.id)}"/>
+
+                        </p:column>
 
                         <f:facet name="footer">
 
@@ -131,14 +138,15 @@
                                                      styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
                                 </div>
                             </p:confirmDialog>
-                             <p:button id="returnButton"   icon=" ui-icon-arrowreturn-1-w" 
-                                          value="Back to Student List" outcome="TeacherGrader"
-                                          styleClass="commandButton"/>
+                            <p:button id="returnButton"   icon=" ui-icon-arrowreturn-1-w" 
+                                      value="Back to Student List" outcome="TeacherGrader"
+                                      styleClass="commandButton"/>
                         </f:facet>
                     </p:dataTable>
+
                 </p:panel>
             </h:form>
-                <ui:include src="ViewSpecificStudentAnswers.xhtml"/>
+            <ui:include src="ViewSpecificStudentAnswers.xhtml"/>
 
 
         </ui:define>
