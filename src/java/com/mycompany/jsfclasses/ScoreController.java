@@ -76,7 +76,8 @@ public class ScoreController implements Serializable {
 
     public List<Score> getItems() {
         if (items == null) {
-            items = getFacade().findAll();
+            items = getFacade().findByUser((int) FacesContext.getCurrentInstance().
+                    getExternalContext().getSessionMap().get("user_id"));
         }
         return items;
     }

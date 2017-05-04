@@ -5,9 +5,13 @@
 package com.mycompany.sessionbeans;
 
 import com.mycompany.entityclasses.Score;
+import com.mycompany.entityclasses.User;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.List;
+
+
 
 /**
  *
@@ -27,5 +31,12 @@ public class ScoreFacade extends AbstractFacade<Score> {
     public ScoreFacade() {
         super(Score.class);
     }
+    
+    public List<Score> findByUser( Integer user) {
+  
+            return ((em.createQuery("SELECT c FROM Score c WHERE c.userId.id = :userId")
+                    .setParameter("userId", user)
+                    .getResultList()));
+}
     
 }
