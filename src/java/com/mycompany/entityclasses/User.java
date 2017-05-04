@@ -7,6 +7,7 @@ package com.mycompany.entityclasses;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -46,6 +47,11 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "User.findByEmail", query = "SELECT u FROM User u WHERE u.email = :email")
     , @NamedQuery(name = "User.findByUsertype", query = "SELECT u FROM User u WHERE u.usertype = :usertype")})
 public class User implements Serializable {
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
+    private Collection<Test> testCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
+    private Collection<AnsweredQuestion> answeredQuestionCollection;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -297,6 +303,24 @@ public class User implements Serializable {
     @Override
     public String toString() {
         return "com.mycompany.entityclasses.User[ id=" + id + " ]";
+    }
+
+    @XmlTransient
+    public Collection<Test> getTestCollection() {
+        return testCollection;
+    }
+
+    public void setTestCollection(Collection<Test> testCollection) {
+        this.testCollection = testCollection;
+    }
+
+    @XmlTransient
+    public Collection<AnsweredQuestion> getAnsweredQuestionCollection() {
+        return answeredQuestionCollection;
+    }
+
+    public void setAnsweredQuestionCollection(Collection<AnsweredQuestion> answeredQuestionCollection) {
+        this.answeredQuestionCollection = answeredQuestionCollection;
     }
     
 }

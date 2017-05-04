@@ -73,7 +73,9 @@ Copyright © 2017 Aaron Newman. All rights reserved.
                     <br/>
                     <div align="center">
                         <p:commandButton value="Answer" 
-                                         onclick="AnsweredQuestionController.answer(document.getElementById('answer').value, questionController.selected, userController.selected)"/>
+                                         actionListener="#{answeredQuestionController.answer}"
+                                         oncomplete="handleSubmit(args, 'QuestionAnswerDialog');"
+                                        onclick="QuestionAnswerDialog.hide()"/>
                         <br/>
                         <p:commandButton value="#{bundle.Close}" onclick="QuestionViewDialog.hide()"/>
                     </div>
