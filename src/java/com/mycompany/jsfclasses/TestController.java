@@ -254,5 +254,9 @@ public class TestController implements Serializable {
         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("active_test", selected);
         FacesContext.getCurrentInstance().getExternalContext().redirect("AssignGrade.xhtml");
     }
+    public void teacherGrader(ActionEvent actionEvent) throws IOException {
+        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("active_test", selected);
+        FacesContext.getCurrentInstance().getExternalContext().redirect("TeacherGrader.xhtml");
+    }
 
 }
