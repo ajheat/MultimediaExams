@@ -184,6 +184,77 @@ public class FileUploadManager implements Serializable {
         }
 
     }
+    
+    public void uploadMedia() throws IOException {
+        if (getUploadedFile() != null) {
+            UploadedFile media = getUploadedFile();
+            
+            String user_name = (String) FacesContext.getCurrentInstance()
+                    .getExternalContext().getSessionMap().get("username");
+
+            User user = getUserFacade().findByUsername(user_name);
+
+            /*
+            To associate the file to the user, record "userId_filename" in the database.
+            Since each file has its own primary key (unique id), the user can upload
+            multiple files with the same name.
+             */
+            String userId_filename = user.getId() + "_" + media.getFileName();
+
+            /*
+            "The try-with-resources statement is a try statement that declares one or more resources. 
+            A resource is an object that must be closed after the program is finished with it. 
+            The try-with-resources statement ensures that each resource is closed at the end of the
+            statement." [Oracle] 
+             */
+            try (InputStream inputStream = media.getInputstream();) {
+
+                // The method inputStreamToFile given below writes the uploaded file into the CloudStorage/FileStorage directory.
+                inputStreamToFile(inputStream, userId_filename);
+                inputStream.close();
+            }
+
+            /*
+            Create a new UserFile object with attibutes: (See UserFile table definition inputStream DB)
+                <> id = auto generated as the unique Primary key for the user file object
+                <> filename = userId_filename
+                <> user_id = user
+             */
+            UserFile newUserFile = new UserFile(userId_filename, user);
+
+            /*
+            ==============================================================
+            If the userId_filename was used before, delete the earlier file.
+            ==============================================================
+             */
+            List<UserFile> filesFound = getUserFileFacade().findByFilename(userId_filename);
+
+            /*
+            If the userId_filename already exists in the database, 
+            the filesFound List will not be empty.
+             */
+            if (!filesFound.isEmpty()) {
+
+                // Remove the file with the same name from the database
+                getUserFileFacade().remove(filesFound.get(0));
+            }
+
+            //---------------------------------------------------------------
+            //
+            // Create the new UserFile entity (row) in the CloudDriveDB
+            getUserFileFacade().create(newUserFile);
+
+            // This sets the necessary flag to ensure the messages are preserved.
+            FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
+
+            getUserFileController().refreshFileList();
+
+            resultMsg = new FacesMessage("File(s) Uploaded Successfully!");
+            FacesContext.getCurrentInstance().addMessage(null, resultMsg);
+        }
+        
+        
+    }
 
     // Show the File Upload Page
     public String showFileUploadPage() {
