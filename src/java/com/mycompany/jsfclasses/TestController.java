@@ -265,14 +265,24 @@ public class TestController implements Serializable {
         FacesContext.getCurrentInstance().getExternalContext().redirect("TeacherGrader.xhtml");
     }
 
-    public int totalPoints() {
+    public int totalPointsEarned() {
         int userId = userController.getSelected().getId();
         List<Question> questions = questionFacade.testQuery(selected);
         int totalPoints = 0;
-        for (int i = 0; i <= questions.size(); i++) {
+        for (int i = 0; i < questions.size(); i++) {
             int questionId = questions.get(i).getId();
             AnsweredQuestion answered = answeredQuestionFacade.findByQuestionIdAndUser(questionId, userId);
             totalPoints += answered.getPoints();
+        }
+        return totalPoints;
+    }
+    
+      public int totalPointsPossible() {
+        int userId = userController.getSelected().getId();
+        List<Question> questions = questionFacade.testQuery(selected);
+        int totalPoints = 0;
+        for (int i = 0; i < questions.size(); i++) {
+            totalPoints += questions.get(i).getPoints();
         }
         return totalPoints;
     }

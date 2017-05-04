@@ -28,11 +28,15 @@
                         <h:outputText value="#{questionController.selected.mediaPath}" title="#{bundle.ViewQuestionTitle_mediaPath}"/>
                         <h:outputText value="#{bundle.ViewQuestionLabel_points}"/>
                         <h:outputText value="#{questionController.selected.points}" title="#{bundle.ViewQuestionTitle_points}"/>
-                        <h:outputText value="#{bundle.ViewQuestionLabel_points}"/>
-                        <h:outputText value="#{questionController.selected.points}" title="#{bundle.ViewQuestionTitle_points}"/>
+                        <h:outputText value="#{bundle.ViewAnsweredQuestionLabel_answer}"/>
+                        <h:outputText value="#{AnsweredQUestionController.selected.answer}" title="#{bundle.ViewAnsweredQuestionTitle_answer}"/>
+                        <p:outputLabel value="#{bundle.EditQuestionLabel_points}" for="points" />
+                        <p:inputTextarea rows="1" cols="30" id="points" value="#{answeredQuestionController.getPoints(userController.selected.id, item.id)}
+" 
+                                     title="#{bundle.EditAnsweredQuestionTitle_points}" />
                     </p:panelGrid>
                     <div align="center">
-                    <p:commandButton value="#{bundle.Close}" onclick="QuestionViewDialog.hide()"
+                    <p:commandButton value="#{bundle.Close}" onclick="ViewSpecificStudentDlg.hide()"
                                      icon="ui-icon-cancel" styleClass="commandButton"/>
                     </div>
                 </h:panelGroup>
