@@ -91,3 +91,15 @@ CREATE TABLE Score
        FOREIGN KEY (user_id) REFERENCES User(id) ON DELETE CASCADE,
        FOREIGN KEY (test_id) REFERENCES Test(id) ON DELETE CASCADE
 );
+
+/* 
+The UserFile table contains attributes of interest of a user's uploaded file. 
+Note: We cannot name the table as File since it is a reserved word in MySQL.
+*/
+CREATE TABLE UserFile
+(
+       id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
+       filename VARCHAR (256) NOT NULL,
+       user_id INT UNSIGNED,
+       FOREIGN KEY (user_id) REFERENCES User(id) ON DELETE CASCADE
+);
