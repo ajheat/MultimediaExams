@@ -32,6 +32,15 @@ public class AnsweredQuestionController implements Serializable {
     private com.mycompany.sessionbeans.AnsweredQuestionFacade ejbFacade;
     private List<AnsweredQuestion> items = null;
     private AnsweredQuestion selected;
+    private String submittedAnswer;
+
+    public String getSubmittedAnswer() {
+        return submittedAnswer;
+    }
+
+    public void setSubmittedAnswer(String submittedAnswer) {
+        this.submittedAnswer = submittedAnswer;
+    }
     
     @EJB
     private UserFacade userFacade;
@@ -87,16 +96,14 @@ public class AnsweredQuestionController implements Serializable {
     }
     
     public void answer() {
-        Question selected = questionController.getSelected();
+        Question question = questionController.getSelected();
         User user = userFacade.getUser(accountManager.getUserID());
-        AnsweredQuestion newAnsweredQuestion = new AnsweredQuestion("hi", selected.getPoints(), user, selected);
-        if (ejbFacade.findByQuestionIdAndUser(selected.getId(), user.getId()) ==  null)
-                ejbFacade.create(newAnsweredQuestion);
-        //initializeEmbeddableKey();
-        //persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("AnsweredVideoCreated"));
-        //if (!JsfUtil.isValidationFailed()) {
-        //    items = null;    // Invalidate list of items to trigger re-query.
-        //}
+        selected = new AnsweredQuestion();
+        selected.setAnswer(submittedAnswer);
+        selected.setUserId(user);
+        selected.setQuestionId(question);
+        selected.setPoints(question.getPoints());
+        create();
     }
 
     public void update() {
