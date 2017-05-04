@@ -106,12 +106,15 @@
                         </p:column>
 
                         <f:facet name="footer">
+                            <h:outputText value="#{testController.totalPointsEarned()}"/>
 
+                            <h:outputText value="#{testController.totalPointsPossible()}"/>
+                            <br/>
                             <p:commandButton id="viewButton"   icon="ui-icon-search" 
                                              value="View Answer" styleClass="commandButton" 
                                              oncomplete="PF('ViewSpecificStudentDlg').show()" 
                                              disabled="#{empty questionController.selected}"/>
-                      
+
 
                             <p:commandButton id="sumbitButton" icon="ui-icon-check"  value="Grade Test" 
                                              styleClass="commandButton" actionListener="#{scoreController.submit}" 
@@ -142,14 +145,6 @@
                 </p:panel>
             </h:form>
             <ui:include src="ViewSpecificStudentAnswers.xhtml"/>
-            <div align="center">
-                <h:outputText value="#{testController.totalPointsEarned()}"/>
-                
-                <br/>
-                <h:outputText value="#{testController.totalPointsPossible()}"/>
-
-                <p:commandButton value="grade" type="button"/>
-            </div>
 
         </ui:define>
 
