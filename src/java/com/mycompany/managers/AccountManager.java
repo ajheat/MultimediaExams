@@ -326,6 +326,10 @@ public class AccountManager implements Serializable {
     public boolean isLoggedIn() {
         return FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("username") != null;
     }
+    
+    public int getUserID() {
+        return (int) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("user_id");
+    }
 
     public boolean studentIsLoggedIn() {
         if( isLoggedIn() && FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usertype") != null){

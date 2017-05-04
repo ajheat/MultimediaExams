@@ -5,7 +5,9 @@ import com.mycompany.entityclasses.Question;
 import com.mycompany.entityclasses.User;
 import com.mycompany.jsfclasses.util.JsfUtil;
 import com.mycompany.jsfclasses.util.JsfUtil.PersistAction;
+import com.mycompany.managers.AccountManager;
 import com.mycompany.sessionbeans.AnsweredQuestionFacade;
+import com.mycompany.sessionbeans.UserFacade;
 
 import java.io.Serializable;
 import java.util.List;
@@ -20,6 +22,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.inject.Inject;
 
 @Named("answeredQuestionController")
 @SessionScoped
@@ -29,6 +32,16 @@ public class AnsweredQuestionController implements Serializable {
     private com.mycompany.sessionbeans.AnsweredQuestionFacade ejbFacade;
     private List<AnsweredQuestion> items = null;
     private AnsweredQuestion selected;
+    
+    @EJB
+    private UserFacade userFacade;
+    
+    
+    
+    @Inject
+    private QuestionController questionController;
+    @Inject
+    private AccountManager accountManager;
 
     public AnsweredQuestionController() {
     }
@@ -64,14 +77,17 @@ public class AnsweredQuestionController implements Serializable {
         }
     }
     
-    public void answer(String answerTemp, Question question, User userTemp) {
-        System.out.println("ANSWERED" + answerTemp);
-        selected = new AnsweredQuestion(answerTemp, question.getPoints(), userTemp, question);
-        initializeEmbeddableKey();
-        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("AnsweredVideoCreated"));
-        if (!JsfUtil.isValidationFailed()) {
-            items = null;    // Invalidate list of items to trigger re-query.
-        }
+    public void answer() {
+        Question selected = questionController.getSelected();
+        User user = userFacade.getUser(accountManager.getUserID());
+        AnsweredQuestion newAnsweredQuestion = new AnsweredQuestion("hi", selected.getPoints(), user, selected);
+        
+        ejbFacade.create(newAnsweredQuestion);
+        //initializeEmbeddableKey();
+        //persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("AnsweredVideoCreated"));
+        //if (!JsfUtil.isValidationFailed()) {
+        //    items = null;    // Invalidate list of items to trigger re-query.
+        //}
     }
 
     public void update() {
