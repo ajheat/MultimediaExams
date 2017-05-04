@@ -1,5 +1,6 @@
 package com.mycompany.jsfclasses;
 
+import com.mycompany.entityclasses.AnsweredQuestion;
 import com.mycompany.entityclasses.Question;
 import com.mycompany.entityclasses.Test;
 import com.mycompany.entityclasses.User;
@@ -33,6 +34,8 @@ import javax.inject.Inject;
 @SessionScoped
 public class TestController implements Serializable {
 
+    @EJB
+    private com.mycompany.sessionbeans.AnsweredQuestionFacade answeredQuestionFacade;
     @EJB
     private com.mycompany.sessionbeans.TestFacade ejbFacade;
     @Inject
@@ -254,9 +257,23 @@ public class TestController implements Serializable {
         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("active_test", selected);
         FacesContext.getCurrentInstance().getExternalContext().redirect("AssignGrade.xhtml");
     }
+
     public void teacherGrader(ActionEvent actionEvent) throws IOException {
         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("active_test", selected);
         FacesContext.getCurrentInstance().getExternalContext().redirect("TeacherGrader.xhtml");
+    }
+
+    public int totalPoints() {
+        int userId = accountManager.getUserID();
+        int testId = selected.getId();
+        List<Question> questions = questionFacade.findByTestId(testId);
+        int totalPoints = 0;
+        for (int i = 0; i < questions.size(); i++) {
+            int questionId = questions.get(i).getId();
+            AnsweredQuestion answered = answeredQuestionFacade.findByQuestionIdAndUser(questionId, userId);
+            totalPoints += answered.getPoints();
+        }
+        return totalPoints;
     }
 
 }
