@@ -6,6 +6,7 @@
 package com.mycompany.sessionbeans;
 
 import com.mycompany.entityclasses.Test;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -27,6 +28,16 @@ public class TestFacade extends AbstractFacade<Test> {
 
     public TestFacade() {
         super(Test.class);
+    }
+    
+    /**
+     * @return a list of photos associated with the User whose primary key is userID
+     */
+    public List<Test> findOpenTests() {
+
+        return (List<Test>) em.createNamedQuery("Test.findByOpen")
+                .setParameter("open", true)
+                .getResultList();
     }
     
 }

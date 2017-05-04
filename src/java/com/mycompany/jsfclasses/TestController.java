@@ -34,6 +34,7 @@ public class TestController implements Serializable {
     @EJB
     private com.mycompany.sessionbeans.QuestionFacade questionFacade;
     private List<Test> items = null;
+    private List<Test> items1 = null;
     private Test selected;
 
     private List<Question> testQuestions = null;
@@ -73,6 +74,7 @@ public class TestController implements Serializable {
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("TestCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
+            items1= null;
         }
     }
 
@@ -85,6 +87,7 @@ public class TestController implements Serializable {
         if (!JsfUtil.isValidationFailed()) {
             selected = null; // Remove selection
             items = null;    // Invalidate list of items to trigger re-query.
+            items1=null;
         }
     }
     
@@ -115,6 +118,13 @@ public class TestController implements Serializable {
             items = getFacade().findAll();
         }
         return items;
+    }
+    public List<Test> getItems1() {
+        if (items1 == null) {
+            items1 = getFacade().findOpenTests();
+            System.out.println(items1.size());
+        }
+        return items1;
     }
 
     private void persist(PersistAction persistAction, String successMessage) {
