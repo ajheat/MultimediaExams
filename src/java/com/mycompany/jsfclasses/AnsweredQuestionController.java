@@ -36,8 +36,6 @@ public class AnsweredQuestionController implements Serializable {
     @EJB
     private UserFacade userFacade;
     
-    
-    
     @Inject
     private QuestionController questionController;
     @Inject
@@ -75,6 +73,21 @@ public class AnsweredQuestionController implements Serializable {
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
+    }
+    
+    public int isAnswered(Integer id) {
+        User user = userFacade.getUser(accountManager.getUserID());
+            System.out.println(id);
+              
+        /*
+        String questionID = item.getId() + "";
+        String userID = user.getId() + "";
+        System.out.println(questionID);
+        AnsweredQuestion answeredQuestion = getFacade().findByQuestionIdAndUser(questionID, userID);
+        if (answeredQuestion == null)
+            return false;
+            */
+        return 1;
     }
     
     public void answer() {

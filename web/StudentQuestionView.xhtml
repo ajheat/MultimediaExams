@@ -8,7 +8,8 @@ Copyright © 2017 Aaron Newman. All rights reserved.
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
     <ui:composition template="/template/siteTemplate.xhtml">
 
@@ -54,6 +55,15 @@ Copyright © 2017 Aaron Newman. All rights reserved.
                                 </f:facet>
                                 <h:outputText value="#{item.points}"/>
                             </p:column>
+                            
+                             <p:column style="width: 90px; text-align: center" rendered="#{answeredQuestionController.isAnswered(item.getId()) != true}">
+                                <f:facet name="header">
+                                    <h:outputText value="Answered"/>
+                                </f:facet> 
+                                <h:outputText value="#{item.getId()}"/>
+                                 
+                            </p:column>
+                            
                             <f:facet name="footer">
 
                                 <p:commandButton id="answerButton"   icon="ui-icon-pencil" 
