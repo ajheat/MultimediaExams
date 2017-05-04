@@ -265,8 +265,7 @@ public class TestController implements Serializable {
 
     public int totalPoints() {
         int userId = accountManager.getUserID();
-        int testId = selected.getId();
-        List<Question> questions = questionFacade.findByTestId(testId);
+        List<Question> questions = questionFacade.testQuery(selected);
         int totalPoints = 0;
         for (int i = 0; i < questions.size(); i++) {
             int questionId = questions.get(i).getId();
