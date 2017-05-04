@@ -90,8 +90,8 @@ public class AnsweredQuestionController implements Serializable {
         Question selected = questionController.getSelected();
         User user = userFacade.getUser(accountManager.getUserID());
         AnsweredQuestion newAnsweredQuestion = new AnsweredQuestion("hi", selected.getPoints(), user, selected);
-        
-        ejbFacade.create(newAnsweredQuestion);
+        if (ejbFacade.findByQuestionIdAndUser(selected.getId(), user.getId()) ==  null)
+                ejbFacade.create(newAnsweredQuestion);
         //initializeEmbeddableKey();
         //persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("AnsweredVideoCreated"));
         //if (!JsfUtil.isValidationFailed()) {
