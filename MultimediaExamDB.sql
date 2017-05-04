@@ -63,7 +63,6 @@ CREATE TABLE Question
        choices VARCHAR(2048),
        correct_answer VARCHAR(2048),
        media_path VARCHAR(2048),
-       media_type ENUM('image', 'video','none') NOT NULL,
        points INT UNSIGNED,
        test_id INT UNSIGNED NOT NULL,
        FOREIGN KEY (test_id) REFERENCES Test(id) ON DELETE CASCADE
