@@ -14,23 +14,25 @@ Copyright © 2017 Andrew Heatwole. All rights reserved.
 
 
         <ui:define name="title">
-            <h:outputText value="List of Teachers"></h:outputText>
+            <h:outputText value="#{bundle.ListTestTitle}"></h:outputText>
         </ui:define>
 
         <ui:define name="editableContent">
-            <div align="center"  style="width:97%">
+            <div align="center" style="width:97%">
+
                 <p:growl id="growl" life="4000" />
-                <h:form id="TeacherTestListForm" >
-                    <p:panel header="Teacher List">
-                        <p:dataTable id="datalist" value="#{userController.teachers}" var="item"
+                <h:form id="StudentListForm">
+                    <p:panel header="#{bundle.ListTestTitle}">
+                        <p:dataTable id="datalist" value="#{userController.students}" var="item"
                                      selectionMode="single" selection="#{userController.selected}"
                                      paginator="true"
                                      rowKey="#{item.id}"
                                      rows="10"
                                      rowsPerPageTemplate="10,20,30,40,50"
                                      >
-                            <p:ajax event="rowSelect"   update="viewTeacherButton"/>
-                            <p:ajax event="rowUnselect" update="viewTeacherButton"/>
+                            <p:ajax event="rowSelect"   update="gradeButton"/>
+                            <p:ajax event="rowUnselect" update="gradeButton"/>
+                            
                             <p:column>
                                 <f:facet name="header">
                                     <h:outputText value="First Name"/>
@@ -44,16 +46,15 @@ Copyright © 2017 Andrew Heatwole. All rights reserved.
                                 <h:outputText value="#{item.lastName}"/>
                             </p:column>
                             <f:facet name="footer">
-
-                                <p:commandButton id="viewTeacherButton"   icon="ui-icon-clipboard" 
-                                                 value="View Teacher Details" styleClass="commandButton" 
-                                                 actionListener="#{userController.teacherSummary}"
+                                <p:commandButton id="gradeButton"   icon="ui-icon-clipboard" 
+                                                 value="Grade Student's Test" styleClass="commandButton" 
+                                                 actionListener="#{testController.assignGrade}"
                                                  disabled="#{empty userController.selected}"/>
-
                             </f:facet>
                         </p:dataTable>
                     </p:panel>
                 </h:form>
+
             </div>
         </ui:define>
     </ui:composition>

@@ -5,8 +5,12 @@ import com.mycompany.entityclasses.Test;
 import com.mycompany.entityclasses.User;
 import com.mycompany.jsfclasses.util.JsfUtil;
 import com.mycompany.jsfclasses.util.JsfUtil.PersistAction;
+import com.mycompany.managers.AccountManager;
 import com.mycompany.sessionbeans.QuestionFacade;
 import com.mycompany.sessionbeans.TestFacade;
+import com.mycompany.sessionbeans.UserFacade;
+import com.mycompany.sessionbeans.AnsweredQuestionFacade;
+
 import java.io.IOException;
 
 import java.io.Serializable;
@@ -23,6 +27,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.faces.event.ActionEvent;
+import javax.inject.Inject;
 
 @Named("testController")
 @SessionScoped
@@ -30,7 +35,10 @@ public class TestController implements Serializable {
 
     @EJB
     private com.mycompany.sessionbeans.TestFacade ejbFacade;
-
+    @Inject
+    private AccountManager accountManager;
+    @EJB
+    private UserFacade userFacade;
     @EJB
     private com.mycompany.sessionbeans.QuestionFacade questionFacade;
     private List<Test> items = null;
@@ -74,7 +82,7 @@ public class TestController implements Serializable {
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("TestCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
-            items1= null;
+            items1 = null;
         }
     }
 
@@ -87,24 +95,24 @@ public class TestController implements Serializable {
         if (!JsfUtil.isValidationFailed()) {
             selected = null; // Remove selection
             items = null;    // Invalidate list of items to trigger re-query.
-            items1=null;
+            items1 = null;
         }
     }
-    
+
     public void addQuestion() {
         if (selected != null) {
             selected.setNumQuestions(selected.getNumQuestions() + 1);
             update();
         }
     }
-    
+
     public void removeQuestion() {
         if (selected != null) {
             selected.setNumQuestions(selected.getNumQuestions() - 1);
             update();
         }
     }
-    
+
     public void changePoints(int oldVal, int newVal) {
         if (selected != null) {
             int delta = newVal - oldVal;
@@ -119,6 +127,7 @@ public class TestController implements Serializable {
         }
         return items;
     }
+
     public List<Test> getItems1() {
         if (items1 == null) {
             items1 = getFacade().findOpenTests();
@@ -165,6 +174,11 @@ public class TestController implements Serializable {
     public void studentQuestionSummary(ActionEvent actionEvent) throws IOException {
         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("active_test", selected);
         FacesContext.getCurrentInstance().getExternalContext().redirect("StudentQuestionView.xhtml");
+    }
+
+    public void grade(ActionEvent actionEvent) throws IOException {
+        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("active_test", selected);
+        FacesContext.getCurrentInstance().getExternalContext().redirect("TeacherGrader.xhtml");
     }
 
     public boolean mediaExsits() {
@@ -234,6 +248,11 @@ public class TestController implements Serializable {
             }
         }
 
+    }
+
+    public void assignGrade(ActionEvent actionEvent) throws IOException {
+        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("active_test", selected);
+        FacesContext.getCurrentInstance().getExternalContext().redirect("AssignGrade.xhtml");
     }
 
 }

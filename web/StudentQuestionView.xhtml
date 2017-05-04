@@ -76,7 +76,7 @@ Copyright © 2017 Aaron Newman. All rights reserved.
                                                  oncomplete="PF('QuestionViewDialog').show()" 
                                                  disabled="#{empty questionController.selected}"/>
                                 <p:commandButton id="sumbitButton" icon="ui-icon-check"  value="Submit Test" 
-                                                 styleClass="commandButton" actionListener="#{scoreContoller.sumbit}" 
+                                                 styleClass="commandButton" actionListener="#{answeredQuestionController.submit}" 
                                                  update=":growl,datalist" disabled="#{empty questionController.selected}">
 
                                     <p:confirm header="Confirmation" 

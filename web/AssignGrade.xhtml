@@ -1,0 +1,145 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <!-- Do not enter tags before the composition line since they are ignored by JSF -->
+
+    <!-- This page is constructed based on the siteTemplate -->
+    <ui:composition template="template/siteTemplate.xhtml">
+
+        <ui:define name="title">
+            <h:outputText value="My Account"></h:outputText>
+        </ui:define>
+
+        <!-- Create the content for this page below -->
+        <ui:define name="editableContent">
+            <!--
+                You can place p:growl anywhere on your JSF page since the messages are displayed
+                as an overlay. The life attribute defines how long the message will be displayed 
+                in milliseconds after which it will fade away. 5000 milliseconds = 5 seconds
+                
+                All 'FacesMessage resultMsg' will be displayed here.
+            -->
+            <p:growl id="growl" life="5000" />
+
+            <h:form id="UserProfileForm">
+                <!--
+                <tr> defines a row in the table
+                <td> defines a column within a row.
+                Number of <td> elements = number of columns
+                The table below has 1 row and 2 columns.
+                Left column contains the vertical navigation menu.
+                Right column contains the user's profile data.
+                -->
+                <table width="100%" border="0" cellspacing="0" cellpadding="10">
+                    <tr>
+                        <!-- The first <td> contains the VERTICAL NAVIGATION MENU -->
+
+                        <td width="180" align="left" valign="middle" nowrap="nowrap">
+
+                        </td>
+
+                        <!-- The second <td> contains the USER PROFILE DATA -->
+                        <td align="center" valign="top">
+
+                            <h2> #{userController.selected.firstName} #{userController.selected.lastName}'s  </h2>
+                        </td>
+                    </tr>
+                </table>
+
+                <!-- USER'S PROFILE PHOTO -->
+                <br />
+                <br />
+                <p:growl id="growl" life="4000" />
+                <p:panel header="Questions for #{testController.selected.testName}">
+                    <p:dataTable id="datalist" value="#{testController.testQuestions}" var="item"
+                                 selectionMode="single" selection="#{questionController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.id}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,15,20,30,40,50"
+                                 styleClass="dataTable"
+                                 >
+
+                        <p:ajax event="rowSelect"   update="viewButton sumbitButton"/>
+                        <p:ajax event="rowUnselect" update="viewButton sumbitButton"/>
+
+                        <p:column style="width:50px; text-align: center">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListQuestionTitle_summary}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.summary}"/>
+                        </p:column>
+                        <p:column style="width: 130px; text-align: center;">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListQuestionTitle_questionType}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.textQuestionType()}"/>
+                        </p:column>
+
+
+                        <p:column style="width: 90px; text-align: center">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListQuestionTitle_points}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.points}"/>
+                        </p:column>
+
+                        <p:column style="width: 90px; text-align: center">
+                            <f:facet name="header">
+                                <h:outputText value="Answered"/>
+                            </f:facet> 
+                            <h:outputText value="Yes" rendered="#{answeredQuestionController.isAnswered(item.id) == true}"/>
+
+                        </p:column>
+                        <p:column style="width: 90px; text-align: center">
+                            <f:facet name="header">
+                                <h:outputText value="Answer"/>
+                            </f:facet> 
+                            <h:outputText value="#{answeredQuestionController.selected.answer}" rendered="#{answeredQuestionController.isAnswered(item.id) == true}"/>
+
+                        </p:column>
+
+                        <f:facet name="footer">
+
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" 
+                                             value="#{bundle.View}" styleClass="commandButton" 
+                                             oncomplete="PF('ViewSpecificStudentDlg').show()" 
+                                             disabled="#{empty questionController.selected}"/>
+
+                            <p:commandButton id="sumbitButton" icon="ui-icon-check"  value="Grade Test" 
+                                             styleClass="commandButton" actionListener="#{scoreController.submit}" 
+                                             update=":growl,datalist" disabled="#{empty questionController.selected}">
+
+                                <p:confirm header="Confirmation" 
+                                           message="Are you sure you want to submit the grade?" 
+                                           icon="ui-icon-alert" />
+                            </p:commandButton>
+
+                            <p:confirmDialog id="confirmDialogBox" global="true" showEffect="fade" hideEffect="fade">
+                                <div align="center">
+                                    <!-- The value of the first button listed below will be shown as 
+                                    highlighted (default action) when displayed -->
+                                    <p:commandButton value="No" type="button" 
+                                                     styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                                    &nbsp;
+                                    <p:commandButton value="Yes" type="button" 
+                                                     styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                                </div>
+                            </p:confirmDialog>
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+
+
+        </ui:define>
+
+    </ui:composition>
+    <!-- Do not enter tags after the composition line since they are ignored by JSF -->
+
+</html>
