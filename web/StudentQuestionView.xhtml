@@ -56,11 +56,11 @@ Copyright © 2017 Aaron Newman. All rights reserved.
                                 <h:outputText value="#{item.points}"/>
                             </p:column>
                             
-                             <p:column style="width: 90px; text-align: center" rendered="#{answeredQuestionController.isAnswered(item.getId()) != true}">
+                            <p:column style="width: 90px; text-align: center">
                                 <f:facet name="header">
                                     <h:outputText value="Answered"/>
                                 </f:facet> 
-                                <h:outputText value="#{item.getId()}"/>
+                                <h:outputText value="Yes" rendered="#{answeredQuestionController.isAnswered(item.id) == true}"/>
                                  
                             </p:column>
                             

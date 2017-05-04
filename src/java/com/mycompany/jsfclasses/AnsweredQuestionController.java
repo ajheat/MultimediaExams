@@ -75,19 +75,15 @@ public class AnsweredQuestionController implements Serializable {
         }
     }
     
-    public int isAnswered(Integer id) {
+    public boolean isAnswered(int id) {
         User user = userFacade.getUser(accountManager.getUserID());
-            System.out.println(id);
               
-        /*
-        String questionID = item.getId() + "";
-        String userID = user.getId() + "";
-        System.out.println(questionID);
+        Integer userID = user.getId();
+        Integer questionID = id;
         AnsweredQuestion answeredQuestion = getFacade().findByQuestionIdAndUser(questionID, userID);
         if (answeredQuestion == null)
             return false;
-            */
-        return 1;
+        return true;
     }
     
     public void answer() {
