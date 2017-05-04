@@ -4,6 +4,7 @@ import com.mycompany.entityclasses.User;
 import com.mycompany.jsfclasses.util.JsfUtil;
 import com.mycompany.jsfclasses.util.JsfUtil.PersistAction;
 import com.mycompany.sessionbeans.UserFacade;
+import java.io.IOException;
 
 import java.io.Serializable;
 import java.util.List;
@@ -18,6 +19,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.faces.event.ActionEvent;
 
 @Named("userController")
 @SessionScoped
@@ -27,10 +29,17 @@ public class UserController implements Serializable {
     private com.mycompany.sessionbeans.UserFacade ejbFacade;
     private List<User> items = null;
     private List<User> students = null;
+        private List<User> teachers = null;
+
 
     public List<User> getStudents() {
         students = getFacade().studentQuery("student");
         return students;
+    }
+    
+    public List<User> getTeachers() {
+        teachers = getFacade().studentQuery("teacher");
+        return teachers;
     }
 
     public void setStudents(List<User> students) {
@@ -121,6 +130,10 @@ public class UserController implements Serializable {
 
     public User getUser(java.lang.Integer id) {
         return getFacade().find(id);
+    }
+    public void teacherSummary(ActionEvent actionEvent) throws IOException {
+        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("active_user", selected);
+        FacesContext.getCurrentInstance().getExternalContext().redirect("TeacherView.xhtml");
     }
 
     public List<User> getItemsAvailableSelectMany() {

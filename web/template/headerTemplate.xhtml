@@ -82,7 +82,10 @@ Copyright © 2017 Osman Balci. All rights reserved.
                                 <i class="fa fa-graduation-cap">&nbsp;</i>My Grades
                             </h:link>&nbsp;&nbsp;
 
-                            
+                             <h:link outcome="TeacherList" styleClass="arialTen">
+                                <i class="fa fa-info-circle">&nbsp;</i>Teacher List
+                            </h:link>&nbsp;&nbsp;
+
                         </c:if>
                         
                         <!-- "Sign Out" and "My Account" if a TEACHER is signed in -->
@@ -106,6 +109,11 @@ Copyright © 2017 Osman Balci. All rights reserved.
                                 <i class="fa fa-graduation-cap">&nbsp;</i>View Students
                             </h:link>&nbsp;&nbsp;
                             
+                             <h:link outcome="TeacherList" styleClass="arialTen">
+                                <i class="fa fa-info-circle">&nbsp;</i>Teacher List
+                            </h:link>&nbsp;&nbsp;
+
+                            
                         </c:if>
                         
                         <!-- "Sign In" and "Create an Account" if no user is signed in -->
@@ -120,7 +128,7 @@ Copyright © 2017 Osman Balci. All rights reserved.
                                 <i class="fa fa-user-plus">&nbsp;</i>Create an Account
                             </h:link>&nbsp;&nbsp;
                         </c:if>
-
+                       
                     </td>
                 </tr>
             </table>

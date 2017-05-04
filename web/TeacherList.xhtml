@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+Created by Andrew Heatwole on 2017.04.02
+Copyright © 2017 Andrew Heatwole. All rights reserved.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template/siteTemplate.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="Take Test"></h:outputText>
+        </ui:define>
+
+        <ui:define name="editableContent">
+            <div align="center" style="width:97%">
+
+                <p:growl id="growl" life="4000" />
+                <h:form id="TeacherTestListForm">
+                    <p:panel header="#{bundle.ListTestTitle}">
+                        <p:dataTable id="datalist" value="#{userController.teachers}" var="item"
+                                     selectionMode="single" selection="#{userController.selected}"
+                                     paginator="true"
+                                     rowKey="#{item.id}"
+                                     rows="10"
+                                     rowsPerPageTemplate="10,20,30,40,50"
+                                     >
+                            <p:ajax event="rowSelect"   update="viewTeacherButton"/>
+                            <p:ajax event="rowUnselect" update="viewTeacherButton"/>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="First Name"/>
+                                </f:facet>
+                                <h:outputText value="#{item.firstName}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Last Name"/>
+                                </f:facet>
+                                <h:outputText value="#{item.lastName}"/>
+                            </p:column>
+                            <f:facet name="footer">
+
+                                <p:commandButton id="viewTeacherButton"   icon="ui-icon-clipboard" 
+                                                 value="View Teacher Details" styleClass="commandButton" 
+                                                 actionListener="#{userController.teacherSummary}"
+                                                 disabled="#{empty userController.selected}"/>
+
+                            </f:facet>
+                        </p:dataTable>
+                    </p:panel>
+                </h:form>
+            </div>
+        </ui:define>
+    </ui:composition>
+
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <!-- Do not enter tags before the composition line since they are ignored by JSF -->
+
+    <!-- This page is constructed based on the siteTemplate -->
+    <ui:composition template="template/siteTemplate.xhtml">
+
+        <ui:define name="title">
+            <h:outputText value="My Account"></h:outputText>
+        </ui:define>
+
+        <!-- Create the content for this page below -->
+        <ui:define name="editableContent">
+            <!--
+                You can place p:growl anywhere on your JSF page since the messages are displayed
+                as an overlay. The life attribute defines how long the message will be displayed 
+                in milliseconds after which it will fade away. 5000 milliseconds = 5 seconds
+                
+                All 'FacesMessage resultMsg' will be displayed here.
+            -->
+            <p:growl id="growl" life="5000" />
+
+            <h:form id="UserProfileForm">
+                <!--
+                <tr> defines a row in the table
+                <td> defines a column within a row.
+                Number of <td> elements = number of columns
+                The table below has 1 row and 2 columns.
+                Left column contains the vertical navigation menu.
+                Right column contains the user's profile data.
+                -->
+                <table width="100%" border="0" cellspacing="0" cellpadding="10">
+                    <tr>
+                        <!-- The first <td> contains the VERTICAL NAVIGATION MENU -->
+
+                        <td width="180" align="left" valign="middle" nowrap="nowrap">
+
+                        </td>
+                        <!-- The second <td> contains the USER PROFILE DATA -->
+                        <td align="center" valign="top">
+
+                            <h2> #{userController.selected.firstName} #{userController.selected.lastName}'s Account Profile </h2>
+
+                            <h:graphicImage class="profilePhoto" value="#{accountManager.teacherPhoto(userController.selected)}" />
+
+                            <br />
+                            <br />
+                            <p:panelGrid columns="2" columnClasses="profileColumn1, profileColumn2" >
+
+                                <h:outputText value="#{bundle.ViewUserLabel_firstName}"/>
+                                <h:outputText value="#{userController.selected.firstName}" />
+
+                                <h:outputText value="#{bundle.ViewUserLabel_lastName}"/>
+                                <h:outputText value="#{userController.selected.lastName}" />
+
+                                <h:outputText value="#{bundle.ViewUserLabel_email}"/>
+                                <h:outputText value="#{userController.selected.email}" />
+
+                                <h:outputText value="#{bundle.ViewUserLabel_username}"/>
+                                <h:outputText value="#{userController.selected.username}" />
+
+                            </p:panelGrid>
+
+                        </td>
+                    </tr>
+                </table>
+
+            </h:form>
+
+            <ui:include src="DeleteAccountDialog.xhtml"/>
+
+        </ui:define>
+
+    </ui:composition>
+    <!-- Do not enter tags after the composition line since they are ignored by JSF -->
+
+</html>

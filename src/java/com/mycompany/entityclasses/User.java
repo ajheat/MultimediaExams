@@ -4,8 +4,10 @@
  */
 package com.mycompany.entityclasses;
 
+import com.mycompany.managers.Constants;
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -280,6 +282,7 @@ public class User implements Serializable {
         this.userPhotoCollection = userPhotoCollection;
     }
 
+    
     @Override
     public int hashCode() {
         int hash = 0;
