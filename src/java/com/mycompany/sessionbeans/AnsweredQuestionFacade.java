@@ -5,6 +5,7 @@
 package com.mycompany.sessionbeans;
 
 import com.mycompany.entityclasses.AnsweredQuestion;
+import com.mycompany.entityclasses.User;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -28,4 +29,17 @@ public class AnsweredQuestionFacade extends AbstractFacade<AnsweredQuestion> {
         super(AnsweredQuestion.class);
     }
     
+    public AnsweredQuestion findByQuestionIdAndUser(String question, String user) {
+        if (em.createQuery("SELECT c FROM AnsweredQuestion c WHERE c.user_id = :user AND c.question_id = :question")
+                .setParameter("user", user)
+                .setParameter("question", question)
+                .getResultList().isEmpty()) {
+            return null;
+        } else {
+            return (AnsweredQuestion) (em.createQuery("SELECT c FROM AnsweredQuestion c WHERE c.user_id = :user AND c.question_id = :question")
+                    .setParameter("user", user)
+                    .setParameter("question", question)
+                    .getSingleResult());
+        }
+    }
 }
