@@ -73,6 +73,7 @@ CREATE TABLE AnsweredQuestion
        id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
        answer TEXT NOT NULL,
        points INT,
+       score INT,
        comment VARCHAR(2048),
        user_id INT UNSIGNED NOT NULL,
        question_id INT UNSIGNED NOT NULL,
@@ -83,7 +84,8 @@ CREATE TABLE AnsweredQuestion
 CREATE TABLE Score
 (
        id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
-       score INT UNSIGNED,
+       points_earned INT,
+       points_possible INT,
        user_id INT UNSIGNED NOT NULL,
        test_id INT UNSIGNED NOT NULL,
        FOREIGN KEY (user_id) REFERENCES User(id) ON DELETE CASCADE,
