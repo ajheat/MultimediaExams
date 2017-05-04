@@ -19,7 +19,19 @@ Copyright © 2017 Aaron Newman. All rights reserved.
 
                     <c:if test="#{questionController.selected.mediaPath != null}">
                         <div align="center">
-                            <h:graphicImage url="#{questionController.selected.mediaPath}" width="300px"/>
+                            <c:choose>
+                                <c:when test="#{questionController.youtube == true}">
+                                    <div align="center">
+                                        <iframe width="560" height="315" src="https://www.youtube.com/embed/#{questionController.youtubecode}" frameborder="0" allowfullscreen="true"></iframe>
+                                    </div>
+                                </c:when>
+                                <c:otherwise>
+                                    <div align="center">
+                                        <h:graphicImage url="#{questionController.selected.mediaPath}" width="300px"/>
+                                    </div>
+                                </c:otherwise>
+                            </c:choose>
+                            
                         </div>
                     </c:if>
                     <br/>
