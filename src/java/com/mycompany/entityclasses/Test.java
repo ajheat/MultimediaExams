@@ -42,7 +42,7 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Test.findByNumQuestions", query = "SELECT t FROM Test t WHERE t.numQuestions = :numQuestions")
     , @NamedQuery(name = "Test.findByTotalPoints", query = "SELECT t FROM Test t WHERE t.totalPoints = :totalPoints")
     , @NamedQuery(name = "Test.findByDueDate", query = "SELECT t FROM Test t WHERE t.dueDate = :dueDate")
-    , @NamedQuery(name = "Test.findByOpen", query = "SELECT t FROM Test t WHERE t.open = :open")})
+    , @NamedQuery(name = "Test.findByAvailable", query = "SELECT t FROM Test t WHERE t.available = :available")})
 public class Test implements Serializable {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "testId")
@@ -72,7 +72,7 @@ public class Test implements Serializable {
     private Date dueDate;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "open")
+    @Column(name = "available")
     private boolean open;
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
