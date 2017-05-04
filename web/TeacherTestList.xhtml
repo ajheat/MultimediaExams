@@ -80,10 +80,25 @@ Copyright © 2017 Andrew Heatwole. All rights reserved.
                                              value="#{bundle.Summary}" styleClass="commandButton" 
                                              actionListener="#{testController.questionSummary}"
                                              disabled="#{empty testController.selected}"/>
-                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash" ajax="true"
                                              value="#{bundle.Delete}" actionListener="#{testController.destroy}" 
                                              update=":growl,datalist" styleClass="commandButton"
-                                             disabled="#{empty testController.selected}"/>
+                                             disabled="#{empty testController.selected}">
+                                <p:confirm header="Confirmation" 
+                                               message="Are you sure you want to permanently delete the selected file from the database?" 
+                                               icon="ui-icon-alert" />
+                            </p:commandButton>
+                            <p:confirmDialog id="confirmDialogBox" global="true" showEffect="fade" hideEffect="fade">
+                                    <div align="center">
+                                        <!-- The value of the first button listed below will be shown as 
+                                        highlighted (default action) when displayed -->
+                                        <p:commandButton value="No" type="button" 
+                                                         styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                                        &nbsp;
+                                        <p:commandButton value="Yes" type="button" 
+                                                         styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                                    </div>
+                                </p:confirmDialog>
                         </f:facet>
                     </p:dataTable>
                 </p:panel>

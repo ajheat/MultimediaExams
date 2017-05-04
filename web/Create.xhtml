@@ -35,16 +35,14 @@
                         </p:selectOneMenu>
 
                         <p:outputLabel value="Question Media: " for="questionMedia" />
-                        <p:fileUpload id="questionMedia" fileUploadListener="#{fileUploadManager.handleFileUpload}"
-                                      mode="simple" skinSimple="true" value="#{fileUploadManager.uploadedFile}"/>
+                        <p:fileUpload id="questionMedia"
+                                      mode="simple" skinSimple="true" value="#{fileUploadManager.uploadedFile}"
+                                      auto="true"/>
 
                         <p:outputLabel value="#{bundle.CreateQuestionLabel_mediaPath}" for="mediaPath" />
                         <p:inputTextarea rows="1" cols="60"  id="mediaPath" value="#{questionController.selected.mediaPath}" 
                                          title="#{bundle.CreateQuestionTitle_mediaPath}" required="false"
                                          placeholder="Enter Image or Video URL for media"/>
-                        
-                        
-                        
                         
                         <p:outputLabel for="choices" value="Multiple Choice Answers: " />
                         <p:inputTextarea rows="1" cols="30" id="choices" value="#{questionController.selected.choices}" 
@@ -69,6 +67,7 @@
                                          action="#{testController.changePoints(0, questionController.selected.points)}">
                             <f:actionListener binding="#{questionController.create()}" />
                             <f:actionListener binding="#{testController.addQuestion()}" />
+                            <f:actionListener binding="#{fileUploadManager.uploadMedia()}" />
                         </p:commandButton>
                         &nbsp;
                         <p:commandButton value="#{bundle.Cancel}" onclick="QuestionCreateDialog.hide()"

@@ -75,12 +75,26 @@
                                              oncomplete="PF('QuestionViewDialog').show()" 
                                              disabled="#{empty questionController.selected}"/>
                             <p:commandButton id="deleteButton" icon="ui-icon-trash"
-                                             value="#{bundle.Delete}" update=":growl,datalist" 
+                                             value="#{bundle.Delete}" update=":growl,datalist" ajax="true"
                                              styleClass="commandButton" disabled="#{empty questionController.selected}"
                                              action="#{testController.changePoints(questionController.selected.points, 0)}">
                                 <f:actionListener binding="#{questionController.destroy()}" />
                                 <f:actionListener binding="#{testController.removeQuestion()}" />
+                                <p:confirm header="Confirmation" 
+                                               message="Are you sure you want to permanently delete the selected file from the database?" 
+                                               icon="ui-icon-alert" />
                             </p:commandButton>
+                            <p:confirmDialog id="confirmDialogBox" global="true" showEffect="fade" hideEffect="fade">
+                                    <div align="center">
+                                        <!-- The value of the first button listed below will be shown as 
+                                        highlighted (default action) when displayed -->
+                                        <p:commandButton value="No" type="button" 
+                                                         styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                                        &nbsp;
+                                        <p:commandButton value="Yes" type="button" 
+                                                         styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                                    </div>
+                                </p:confirmDialog>
                             <p:button id="returnButton"   icon=" ui-icon-arrowreturn-1-w" 
                                           value="#{bundle.Return}" outcome="TeacherTestList"
                                           styleClass="commandButton"/>
