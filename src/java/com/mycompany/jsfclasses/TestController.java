@@ -40,6 +40,8 @@ public class TestController implements Serializable {
     private com.mycompany.sessionbeans.TestFacade ejbFacade;
     @Inject
     private AccountManager accountManager;
+    @Inject
+    private UserController userController;
     @EJB
     private UserFacade userFacade;
     @EJB
@@ -264,10 +266,10 @@ public class TestController implements Serializable {
     }
 
     public int totalPoints() {
-        int userId = accountManager.getUserID();
+        int userId = userController.getSelected().getId();
         List<Question> questions = questionFacade.testQuery(selected);
         int totalPoints = 0;
-        for (int i = 0; i < questions.size(); i++) {
+        for (int i = 0; i <= questions.size(); i++) {
             int questionId = questions.get(i).getId();
             AnsweredQuestion answered = answeredQuestionFacade.findByQuestionIdAndUser(questionId, userId);
             totalPoints += answered.getPoints();
