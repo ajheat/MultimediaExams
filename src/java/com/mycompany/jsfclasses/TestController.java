@@ -158,13 +158,7 @@ public class TestController implements Serializable {
     }
 
     public boolean mediaExsits() {
-        if (FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("mediaPath") != null) {
-                    System.out.println("MEDIA CHECK");
-
-            return true;
-        } else {
-            return false;
-        }
+        return FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("mediaPath") != null;
     }
 
     public Test getTest(java.lang.Integer id) {
