@@ -30,13 +30,12 @@
                         <h:outputText value="#{questionController.selected.points}" title="#{bundle.ViewQuestionTitle_points}"/>
                         <h:outputText value="#{bundle.ViewAnsweredQuestionLabel_answer}"/>
                         <h:outputText value="#{answeredQuestionController.viewAnswer(userController.selected.id, questionController.selected.id)}" title="#{bundle.ViewAnsweredQuestionTitle_answer}"/>
-                        <p:outputLabel value="#{bundle.EditQuestionLabel_points}" for="points" />
-                        <p:inputTextarea rows="1" cols="30" id="points" value="#{answeredQuestionController.getPoints(userController.selected.id, questionController.selected.id)}"
+                        <p:outputLabel value="##{bundle.EditAnsweredQuestionLabel_points}" for="points" />
+                        <p:inputTextarea rows="1" cols="30" id="points" value="#{questionController.selected.points}"
                                          title="#{bundle.EditAnsweredQuestionTitle_points}" />
                     </p:panelGrid>
                     <div align="center">
                         <p:commandButton actionListener="#{answerController.update}" value="#{bundle.Save}" 
-                                         update="display,:ViewSpecificStudentForm:datalist,:growl" 
                                          oncomplete="handleSubmit(args, 'ViewSpecificStudentDialog');"
                                          onclick="ViewSpecificStudentDialog.hide()"
                                          icon="ui-icon-disk" styleClass="commandButton"/>

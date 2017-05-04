@@ -1,6 +1,8 @@
 package com.mycompany.jsfclasses;
 
 import com.mycompany.entityclasses.Score;
+import com.mycompany.entityclasses.Test;
+import com.mycompany.entityclasses.User;
 import com.mycompany.jsfclasses.util.JsfUtil;
 import com.mycompany.jsfclasses.util.JsfUtil.PersistAction;
 import com.mycompany.sessionbeans.ScoreFacade;
@@ -163,4 +165,12 @@ public class ScoreController implements Serializable {
 
     }
 
+    public void submitGrade(int pointsEarned, int pointsTotal, Test testId, User userId) {
+        selected = new Score(pointsEarned, pointsTotal, testId, userId);
+        initializeEmbeddableKey();
+        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("ScoreCreated"));
+        if (!JsfUtil.isValidationFailed()) {
+            items = null;    // Invalidate list of items to trigger re-query.
+        }
+    }
 }

@@ -56,6 +56,13 @@ public class Score implements Serializable {
         this.id = id;
     }
 
+    public Score(Integer earned, Integer possible, Test testId, User userId) {
+        this.pointsEarned = earned;
+        this.pointsPossible = possible;
+        this.userId = userId;
+        this.testId = testId;
+    }
+
     public Integer getId() {
         return id;
     }
@@ -120,5 +127,5 @@ public class Score implements Serializable {
     public String toString() {
         return "com.mycompany.entityclasses.Score[ id=" + id + " ]";
     }
-    
+
 }
