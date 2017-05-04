@@ -5,6 +5,7 @@
  */
 package com.mycompany.sessionbeans;
 
+import com.mycompany.entityclasses.AnsweredQuestion;
 import com.mycompany.entityclasses.Question;
 import com.mycompany.entityclasses.Test;
 import java.util.List;
@@ -35,4 +36,23 @@ public class QuestionFacade extends AbstractFacade<Question> {
         return getEntityManager().createQuery("SELECT q FROM Question q WHERE q.testId=:testId").setParameter("testId", testId).getResultList();
     }
     
+    public List<Question> findByTestId(Integer test) {
+        /*
+        List<UserVideo> userVideo = em.createNamedQuery("UserVideo.findUserVideosByUserId")
+                .setParameter("userId", userID)
+                .getResultList();
+        "SELECT u FROM UserVideo u WHERE u.userId.id = :userId"
+        return userVideo;
+        */
+        
+        if (em.createQuery("SELECT c FROM AnsweredQuestion c WHERE c.testId.id = :testId")
+                .setParameter("testId", test)
+                .getResultList().isEmpty()) {
+            return null;
+        } else {
+            return (em.createQuery("SELECT c FROM AnsweredQuestion c WHERE c.testId.id = :testId")
+                    .setParameter("testId", test)
+                    .getResultList());
+        }
+    }
 }
