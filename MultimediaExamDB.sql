@@ -50,7 +50,7 @@ CREATE TABLE Test
        total_points INT UNSIGNED NOT NULL,
        user_id INT UNSIGNED NOT NULL,
        due_date DATETIME,
-       open BOOLEAN NOT NULL,
+       available BOOLEAN NOT NULL,
        FOREIGN KEY (user_id) REFERENCES User(id) ON DELETE CASCADE
 );
 
