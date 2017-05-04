@@ -39,10 +39,6 @@ Copyright © 2017 Aaron Newman. All rights reserved.
                         <p:panelGrid columns="2" rendered="#{questionController.selected != null}">
                             <h:outputText value="#{bundle.ViewQuestionLabel_question}"/>
                             <h:outputText value="#{questionController.selected.question}" title="#{bundle.ViewQuestionTitle_question}"/>
-                            <h:outputText value="#{bundle.ViewQuestionLabel_summary}"/>
-                            <h:outputText value="#{questionController.selected.summary}" title="#{bundle.ViewQuestionTitle_summary}"/>
-                            <h:outputText value="#{bundle.ViewQuestionLabel_questionType}"/>
-                            <h:outputText value="#{questionController.selected.questionType}" title="#{bundle.ViewQuestionTitle_questionType}"/>
                             <h:outputText value="#{bundle.ViewQuestionLabel_points}"/>
                             <h:outputText value="#{questionController.selected.points}" title="#{bundle.ViewQuestionTitle_points}"/>
                         </p:panelGrid>
@@ -51,7 +47,7 @@ Copyright © 2017 Aaron Newman. All rights reserved.
                     <c:if test="#{questionController.selected.questionType == 'multiple'}">
                        <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
                             <p:outputLabel for="answer" value="Multiple Choice: " />
-                            <p:selectOneRadio id="answer" layout="grid" columns="3">
+                            <p:selectOneRadio id="answer" layout="grid" columns="3" value="#{answeredQuestionController.submittedAnswer}">
                                 <f:selectItems value="#{questionController.options}" var="c" itemLabel="#{option}" itemValue="#{option}"/>
                             </p:selectOneRadio>
                         </h:panelGrid>
@@ -59,7 +55,7 @@ Copyright © 2017 Aaron Newman. All rights reserved.
 
                     <c:if test="#{questionController.selected.questionType == 'true_false'}">
                         <div align="center">
-                            <p:selectOneRadio id = "answer"> 
+                            <p:selectOneRadio id = "answer" value="#{answeredQuestionController.submittedAnswer}"> 
                                 <f:selectItem itemValue = "true" itemLabel = "True" /> 
                                 <f:selectItem itemValue = "false" itemLabel = "False" /> 
                             </p:selectOneRadio> 
@@ -70,7 +66,7 @@ Copyright © 2017 Aaron Newman. All rights reserved.
                     <c:if test="#{questionController.selected.questionType == 'short'}">
                         <div align="center">
                             <form>
-                                Answer:  <input type="text" id="answer"/>
+                                Answer:  <input type="text" id="answer" value="#{answeredQuestionController.submittedAnswer}"/>
                             </form>
                         </div>
                     </c:if>
@@ -78,7 +74,7 @@ Copyright © 2017 Aaron Newman. All rights reserved.
                     <c:if test="#{questionController.selected.questionType == 'free_response'}">
                         <p:inputTextarea rows="20" cols="100" counter="fr" maxlength="2500" counterTemplate="{0} characters remaining." autoResize="false" 
                                          placeholder="Please provide your answer to the question here. Make sure to write clear and concise." 
-                                         id="answer" />
+                                         id="answer" value="#{answeredQuestionController.submittedAnswer}"/>
                         <br/>
                         <h:outputText id="fr" />
                     </c:if>
@@ -87,7 +83,7 @@ Copyright © 2017 Aaron Newman. All rights reserved.
                         <p:commandButton value="Answer" 
                                          actionListener="#{answeredQuestionController.answer}"
                                          oncomplete="handleSubmit(args, 'QuestionAnswerDialog');"
-                                        onclick="QuestionAnswerDialog.hide()"/>
+                                         onclick="QuestionAnswerDialog.hide()"/>
                         <br/>
                         <p:commandButton value="#{bundle.Close}" onclick="QuestionAnswerDialog.hide()"/>
                     </div>
