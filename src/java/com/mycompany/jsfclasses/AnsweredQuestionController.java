@@ -33,17 +33,11 @@ public class AnsweredQuestionController implements Serializable {
     private List<AnsweredQuestion> items = null;
     private AnsweredQuestion selected;
     private String submittedAnswer;
-
-    public String getSubmittedAnswer() {
-        return submittedAnswer;
-    }
-
-    public void setSubmittedAnswer(String submittedAnswer) {
-        this.submittedAnswer = submittedAnswer;
-    }
     
     @EJB
     private UserFacade userFacade;
+    
+    
     
     @Inject
     private QuestionController questionController;
@@ -55,6 +49,14 @@ public class AnsweredQuestionController implements Serializable {
 
     public AnsweredQuestion getSelected() {
         return selected;
+    }
+
+    public String getSubmittedAnswer() {
+        return submittedAnswer;
+    }
+
+    public void setSubmittedAnswer(String answer) {
+        this.submittedAnswer = answer;
     }
 
     public void setSelected(AnsweredQuestion selected) {
@@ -98,12 +100,19 @@ public class AnsweredQuestionController implements Serializable {
     public void answer() {
         Question question = questionController.getSelected();
         User user = userFacade.getUser(accountManager.getUserID());
-        selected = new AnsweredQuestion();
-        selected.setAnswer(submittedAnswer);
-        selected.setUserId(user);
-        selected.setQuestionId(question);
-        selected.setPoints(question.getPoints());
-        create();
+        Integer points = 0;
+        if (submittedAnswer.equals(question.getCorrectAnswer()))
+            points = question.getPoints();
+        AnsweredQuestion newAnsweredQuestion = new AnsweredQuestion(submittedAnswer, points, user, question);
+        if (ejbFacade.findByQuestionIdAndUser(question.getId(), user.getId()) ==  null) {
+                ejbFacade.create(newAnsweredQuestion);
+        }
+        submittedAnswer = null;
+        //initializeEmbeddableKey();
+        //persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("AnsweredVideoCreated"));
+        //if (!JsfUtil.isValidationFailed()) {
+        //    items = null;    // Invalidate list of items to trigger re-query.
+        //}
     }
 
     public void update() {
