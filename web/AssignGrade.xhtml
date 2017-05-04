@@ -100,14 +100,14 @@
                             <f:facet name="header">
                                 <h:outputText value="Answer"/>
                             </f:facet> 
-                            <h:outputText value="#{answeredQuestionController.selected.answer}" rendered="#{answeredQuestionController.isAnswered(item.id) == true}"/>
+                            <h:outputText value="#{answeredQuestionController.viewAnswer(userController.selected.id, item.id)}"/>
 
                         </p:column>
 
                         <f:facet name="footer">
 
                             <p:commandButton id="viewButton"   icon="ui-icon-search" 
-                                             value="#{bundle.View}" styleClass="commandButton" 
+                                             value="View Answer" styleClass="commandButton" 
                                              oncomplete="PF('ViewSpecificStudentDlg').show()" 
                                              disabled="#{empty questionController.selected}"/>
 
@@ -132,12 +132,13 @@
                                 </div>
                             </p:confirmDialog>
                              <p:button id="returnButton"   icon=" ui-icon-arrowreturn-1-w" 
-                                          value="#{bundle.Return}" outcome="AssignGrade"
+                                          value="Back to Student List" outcome="TeacherGrader"
                                           styleClass="commandButton"/>
                         </f:facet>
                     </p:dataTable>
                 </p:panel>
             </h:form>
+                <ui:include src="ViewSpecificStudentAnswers.xhtml"/>
 
 
         </ui:define>

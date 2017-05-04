@@ -33,12 +33,10 @@ public class AnsweredQuestionController implements Serializable {
     private List<AnsweredQuestion> items = null;
     private AnsweredQuestion selected;
     private String submittedAnswer;
-    
+
     @EJB
     private UserFacade userFacade;
-    
-    
-    
+
     @Inject
     private QuestionController questionController;
     @Inject
@@ -85,27 +83,29 @@ public class AnsweredQuestionController implements Serializable {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
-    
+
     public boolean isAnswered(int id) {
         User user = userFacade.getUser(accountManager.getUserID());
-              
+
         Integer userID = user.getId();
         Integer questionID = id;
         AnsweredQuestion answeredQuestion = getFacade().findByQuestionIdAndUser(questionID, userID);
-        if (answeredQuestion == null)
+        if (answeredQuestion == null) {
             return false;
+        }
         return true;
     }
-    
+
     public void answer() {
         Question question = questionController.getSelected();
         User user = userFacade.getUser(accountManager.getUserID());
         Integer points = 0;
-        if (submittedAnswer.equals(question.getCorrectAnswer()))
+        if (submittedAnswer.equals(question.getCorrectAnswer())) {
             points = question.getPoints();
+        }
         AnsweredQuestion newAnsweredQuestion = new AnsweredQuestion(submittedAnswer, points, user, question);
-        if (ejbFacade.findByQuestionIdAndUser(question.getId(), user.getId()) ==  null) {
-                ejbFacade.create(newAnsweredQuestion);
+        if (ejbFacade.findByQuestionIdAndUser(question.getId(), user.getId()) == null) {
+            ejbFacade.create(newAnsweredQuestion);
         }
         submittedAnswer = null;
         //initializeEmbeddableKey();
@@ -113,6 +113,15 @@ public class AnsweredQuestionController implements Serializable {
         //if (!JsfUtil.isValidationFailed()) {
         //    items = null;    // Invalidate list of items to trigger re-query.
         //}
+    }
+
+    public String viewAnswer(int userId, int qId) {
+
+        AnsweredQuestion answeredQuestion = getFacade().findByQuestionIdAndUser(qId, userId);
+        if (answeredQuestion == null) {
+            return "Not Answered";
+        }
+        return answeredQuestion.getAnswer();
     }
 
     public void update() {
