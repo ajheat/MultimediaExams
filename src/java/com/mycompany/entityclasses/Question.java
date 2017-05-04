@@ -121,12 +121,8 @@ public class Question implements Serializable {
     public String getQuestionType() {
         return questionType;
     }
-    
-    public List<String> option()
-    {
-                System.out.println("TEST##################");
-                System.out.println(choices);
 
+    public List<String> option() {
         List<String> temp = Arrays.asList(choices.split(","));
         return temp;
     }
@@ -146,10 +142,6 @@ public class Question implements Serializable {
         }
     }
 
-    public void answer() {
-        System.out.println("ANSWERED");
-    }
-
     public void setQuestionType(String questionType) {
         this.questionType = questionType;
     }
@@ -163,8 +155,8 @@ public class Question implements Serializable {
         //for (String s : choicesTemp) {
         //    c.append(s);
         //    c.append("\t");
-       // }
-                        //for chips
+        // }
+        //for chips
         this.choices = choices;
     }
 

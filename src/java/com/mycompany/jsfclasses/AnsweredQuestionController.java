@@ -1,6 +1,8 @@
 package com.mycompany.jsfclasses;
 
 import com.mycompany.entityclasses.AnsweredQuestion;
+import com.mycompany.entityclasses.Question;
+import com.mycompany.entityclasses.User;
 import com.mycompany.jsfclasses.util.JsfUtil;
 import com.mycompany.jsfclasses.util.JsfUtil.PersistAction;
 import com.mycompany.sessionbeans.AnsweredQuestionFacade;
@@ -57,6 +59,16 @@ public class AnsweredQuestionController implements Serializable {
 
     public void create() {
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("AnsweredQuestionCreated"));
+        if (!JsfUtil.isValidationFailed()) {
+            items = null;    // Invalidate list of items to trigger re-query.
+        }
+    }
+    
+    public void answer(String answerTemp, Question question, User userTemp) {
+        System.out.println("ANSWERED" + answerTemp);
+        selected = new AnsweredQuestion(answerTemp, question.getPoints(), userTemp, question);
+        initializeEmbeddableKey();
+        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("AnsweredVideoCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }

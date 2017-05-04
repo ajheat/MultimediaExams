@@ -68,8 +68,6 @@ public class QuestionController implements Serializable {
     }
 
     public List<String> getOptions() {
-        System.out.println("TEST##################");
-        System.out.println(selected.getChoices());
         if (selected.getChoices() != null) {
             options = Arrays.asList(selected.getChoices().split(","));
         } else {

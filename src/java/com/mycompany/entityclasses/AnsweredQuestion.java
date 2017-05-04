@@ -66,9 +66,13 @@ public class AnsweredQuestion implements Serializable {
         this.id = id;
     }
 
-    public AnsweredQuestion(Integer id, String answer) {
-        this.id = id;
+    public AnsweredQuestion(String answer, Integer points, User userId,
+            Question questionId) {
+        
         this.answer = answer;
+        this.points = points;
+        this.userId = userId;
+        this.questionId = questionId;
     }
 
     public Integer getId() {
